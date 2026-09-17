@@ -15,16 +15,22 @@
     --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   }
   * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   [hidden] { display: none !important; }
   body { margin: 0; background: var(--bench); color: var(--ink); font: 400 1rem/1.5 Barlow, system-ui, sans-serif; }
   :focus-visible { outline: 2px solid var(--laser); outline-offset: 2px; }
 
-  .bench { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; display: grid; gap: 1.5rem; }
+  /* minmax(0, ...): a plain 1fr track refuses to go narrower than the EAN input, which pushed the page off 360px phones */
+  .bench { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .bench > header h1 { margin: 0; font: 700 2.5rem/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
   .bench > header p { margin: .25rem 0 0; color: var(--steel); }
   @media (min-width: 52rem) {
-    .bench { grid-template-columns: 1fr 1fr; align-items: start; }
-    .bench > header { grid-column: 1 / -1; }
+    .bench { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; align-items: start;
+      grid-template-areas: "head head" "cam result" "other result"; }
+    .bench > header { grid-area: head; }
+    .cam { grid-area: cam; }
+    .result { grid-area: result; }
+    .other { grid-area: other; }
   }
 
   /* scanner */
@@ -52,7 +58,7 @@
   .note.error { color: var(--laser); }
   .note:empty { display: none; }
   #photo { position: absolute; opacity: 0; pointer-events: none; }
-  .photo { display: block; margin-top: .75rem; padding: .85rem 1.1rem; border: 1.5px solid var(--line); border-radius: 8px;
+  .photo { display: block; padding: .85rem 1.1rem; border: 1.5px solid var(--line); border-radius: 8px;
     font-weight: 500; line-height: 1; text-align: center; background: var(--card); cursor: pointer; }
   #photo:focus-visible + .photo { outline: 2px solid var(--laser); outline-offset: 2px; }
 
@@ -88,25 +94,16 @@
     <p>Scan a barcode to check the product and its colour.</p>
   </header>
 
-  <section aria-label="Scan a barcode">
+  <section class="cam" aria-label="Scan a barcode">
     <div class="viewfinder" id="viewfinder">
       <video id="video" playsinline muted></video>
       <span class="laser"></span>
       <button id="camera" type="button">Start camera</button>
     </div>
     <p id="camera-note" class="note" role="status"></p>
-    <input id="photo" type="file" accept="image/*" capture="environment">
-    <label class="photo" for="photo">Scan from a photo</label>
-    <form id="manual">
-      <label for="ean">Or type the EAN (a USB scanner works here too)</label>
-      <div class="row">
-        <input id="ean" inputmode="numeric" autocomplete="off" placeholder="8906209350897" autofocus>
-        <button>Find product</button>
-      </div>
-    </form>
   </section>
 
-  <section aria-label="Scanned product" aria-live="polite">
+  <section class="result" id="result" aria-label="Scanned product" aria-live="polite">
     <p id="empty" class="empty">Nothing scanned yet. Point the camera at a barcode, or type the EAN.</p>
     <p id="missing" class="missing" hidden></p>
     <article id="found" hidden>
@@ -125,6 +122,18 @@
         </dl>
       </div>
     </article>
+  </section>
+
+  <section class="other" aria-label="Other ways to find a product">
+    <input id="photo" type="file" accept="image/*" capture="environment">
+    <label class="photo" for="photo">Scan from a photo</label>
+    <form id="manual">
+      <label for="ean">Or type the EAN (a USB scanner works here too)</label>
+      <div class="row">
+        <input id="ean" inputmode="numeric" autocomplete="off" placeholder="8906209350897">
+        <button>Find product</button>
+      </div>
+    </form>
   </section>
 </main>
 
@@ -155,6 +164,7 @@
     $('code').textContent = code;
     $('sku').textContent = p.sku;
     navigator.vibrate?.(80);
+    $('result').scrollIntoView({ block: 'nearest' });
   }
 
   $('image').onerror = () => { $('image').hidden = true; $('image-note').hidden = false; };
@@ -170,27 +180,35 @@
     $('camera-note').classList.toggle('error', error);
   }
 
-  // Resolves to detect(videoOrBitmap) -> EAN string or undefined.
-  // Native detector where it really reads EANs (Android, macOS), ZBar everywhere else. ZBar rather than ZXing:
-  // on webcam-grade frames (blur, noise, tilt) it read twice as many EANs in our benchmark, with no misreads.
+  // The number on a label is an EAN, but label printers usually draw it as Code 128, not EAN-13 bars.
+  // So read every common symbology and match on the digits.
+  const FORMATS = ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'code_93', 'qr_code'];
+  const ZBAR_TYPES = /EAN|UPC|CODE128|CODE39|CODE93|QRCODE/;
+
+  // Resolves to detect(videoOrBitmap) -> array of decoded strings.
+  // ZBar rather than ZXing: on webcam-grade frames (blur, noise, tilt) it read twice as many codes in our benchmark.
   const detectReady = (async () => {
     // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
-    const native = 'BarcodeDetector' in window && (await BarcodeDetector.getSupportedFormats().catch(() => [])).includes('ean_13');
-    if (native) {
-      const detector = new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
-      return async source => (await detector.detect(source))[0]?.rawValue;
-    }
+    const supported = 'BarcodeDetector' in window ? await BarcodeDetector.getSupportedFormats().catch(() => []) : [];
+    const formats = FORMATS.filter(f => supported.includes(f));
+    const native = formats.includes('ean_13') ? new BarcodeDetector({ formats }) : null;
     const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d', { willReadFrequently: true });
     return async source => {
+      // Native first: fast on Android/macOS. It comes back empty when the OS barcode module is missing, so ZBar backs it up.
+      const quick = native ? (await native.detect(source).catch(() => [])).map(b => b.rawValue) : [];
+      if (quick.length) return quick;
       const w = source.videoWidth || source.width, h = source.videoHeight || source.height;
       const k = Math.min(1, 2560 / Math.max(w, h)); // ponytail: big photos are shrunk to 2560px to bound memory; tile them if tiny barcodes in huge photos matter
       canvas.width = w * k;
       canvas.height = h * k;
       ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
       const symbols = await zbarWasm.scanImageData(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      return symbols.find(s => /EAN|UPC/.test(s.typeName))?.decode(); // ignore QR / Code128 that share the packaging
+      return symbols.filter(s => ZBAR_TYPES.test(s.typeName)).map(s => s.decode());
     };
   })();
+
+  // Several codes in view (label sheets, batch codes): take the one that is a known product.
+  const pick = codes => codes.find(c => PRODUCTS[key(c)]) ?? codes[0];
 
   async function startCamera() {
     note('Starting camera…');
@@ -209,12 +227,12 @@
     await $('video').play();
     $('viewfinder').classList.add('on');
     $('camera').textContent = 'Stop camera';
-    note('Scanning. Hold the barcode steady inside the frame. Not reading? Move it slowly further away: a small sharp barcode reads, a big blurry one does not.');
+    note('Scanning. Hold the barcode steady inside the frame. Not reading? Move it further away until it looks sharp.');
     let fails = 0, seen;
     (async function tick() {
       if (stream !== mine) return;
       try {
-        const code = await detect($('video'));
+        const code = pick(await detect($('video')));
         fails = 0;
         if (code && code === seen && code !== last) show(code); // two frames must agree, a lone read can be a misread
         seen = code;
@@ -234,7 +252,7 @@
     e.target.value = ''; // so picking the same photo again still fires
     if (!file) return;
     try {
-      const code = await (await detectReady)(await createImageBitmap(file));
+      const code = pick(await (await detectReady)(await createImageBitmap(file)));
       if (code) { note(''); show(code); }
       else {
         $('found').hidden = $('missing').hidden = true; // don't leave the previous product up as if it matched
@@ -256,6 +274,9 @@
   }
 
   $('camera').onclick = () => stream ? stopCamera() : startCamera();
+
+  // Desktop only: a USB scanner types into whatever has focus. On phones the input sits below the fold.
+  if (matchMedia('(min-width: 52rem)').matches) $('ean').focus({ preventScroll: true });
 </script>
 </body>
 </html>
