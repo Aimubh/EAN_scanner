@@ -53,6 +53,7 @@
 
   button { font: 500 1rem/1 Barlow, system-ui, sans-serif; border: 0; border-radius: 8px; padding: .85rem 1.1rem;
     color: #fff; background: var(--ink); cursor: pointer; }
+  button:disabled { opacity: .6; cursor: default; }
   #camera { position: absolute; z-index: 2; left: 50%; bottom: 1rem; transform: translateX(-50%); background: var(--laser); white-space: nowrap; }
   .note { margin: .5rem 0 0; color: var(--steel); }
   .note.error { color: var(--laser); }
@@ -96,7 +97,7 @@
 
   <section class="cam" aria-label="Scan a barcode">
     <div class="viewfinder" id="viewfinder">
-      <video id="video" playsinline muted></video>
+      <video id="video" playsinline muted autoplay></video>
       <span class="laser"></span>
       <button id="camera" type="button">Start camera</button>
     </div>
@@ -138,7 +139,6 @@
 </main>
 
 <script src="products.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@undecaf/zbar-wasm@0.11.0/dist/inlined/index.js"></script>
 <script>
   const $ = id => document.getElementById(id);
   const key = code => code.replace(/\D/g, '').replace(/^0+/, ''); // same normalisation as build.py
@@ -185,11 +185,25 @@
   const FORMATS = ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'code_93', 'qr_code'];
   const ZBAR_TYPES = /EAN|UPC|CODE128|CODE39|CODE93|QRCODE/;
 
+  // zbar.js is @undecaf/zbar-wasm 0.11.0 (LGPL-2.1), kept in this repo so scanning never depends on a CDN being reachable.
+  // Loaded in the background: the buttons must work the instant the page shows, not after 330 KB arrives.
+  const zbarLoaded = new Promise((ok, fail) => {
+    const script = document.createElement('script');
+    script.src = 'zbar.js';
+    script.onload = ok;
+    script.onerror = () => fail(new Error('the barcode reader (zbar.js) did not load, check the connection and reload'));
+    document.head.append(script);
+  });
+  zbarLoaded.catch(() => {}); // reported where it is awaited; this just keeps the console quiet when the native detector never needs it
+
   // Resolves to detect(videoOrBitmap) -> array of decoded strings.
   // ZBar rather than ZXing: on webcam-grade frames (blur, noise, tilt) it read twice as many codes in our benchmark.
   const detectReady = (async () => {
     // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
-    const supported = 'BarcodeDetector' in window ? await BarcodeDetector.getSupportedFormats().catch(() => []) : [];
+    // On Android this call goes out to a system service that can hang, so it gets 2 seconds.
+    const supported = 'BarcodeDetector' in window
+      ? await Promise.race([BarcodeDetector.getSupportedFormats(), new Promise(ok => setTimeout(ok, 2000, []))]).catch(() => [])
+      : [];
     const formats = FORMATS.filter(f => supported.includes(f));
     const native = formats.includes('ean_13') ? new BarcodeDetector({ formats }) : null;
     const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -197,6 +211,7 @@
       // Native first: fast on Android/macOS. It comes back empty when the OS barcode module is missing, so ZBar backs it up.
       const quick = native ? (await native.detect(source).catch(() => [])).map(b => b.rawValue) : [];
       if (quick.length) return quick;
+      await zbarLoaded;
       const w = source.videoWidth || source.width, h = source.videoHeight || source.height;
       const k = Math.min(1, 2560 / Math.max(w, h)); // ponytail: big photos are shrunk to 2560px to bound memory; tile them if tiny barcodes in huge photos matter
       canvas.width = w * k;
@@ -210,24 +225,47 @@
   // Several codes in view (label sheets, batch codes): take the one that is a known product.
   const pick = codes => codes.find(c => PRODUCTS[key(c)]) ?? codes[0];
 
+  const CAMERA_HELP = {
+    NotAllowedError: 'Camera permission is blocked. Tap the icon at the left of the address bar, allow Camera, then reload the page.',
+    NotFoundError: 'No camera was found on this device.',
+    NotReadableError: 'The camera is busy. Close other tabs or apps that are using it, then try again.',
+  };
+
+  // Full HD first (small barcodes need the pixels), then plainer requests for cameras that refuse it.
+  const CAMERA_TRIES = [{ facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }, { facingMode: 'environment' }, true];
+
+  async function openCamera() {
+    if (!navigator.mediaDevices) throw new Error('this page must be opened over HTTPS or localhost');
+    let error;
+    for (const video of CAMERA_TRIES) {
+      try { return await navigator.mediaDevices.getUserMedia({ video }); }
+      catch (e) { error = e; if (e.name === 'NotAllowedError') break; } // asking again will not change a "no"
+    }
+    throw error;
+  }
+
   async function startCamera() {
+    $('camera').disabled = true;
     note('Starting camera…');
-    let detect;
+    const slow = setTimeout(() => note('Still waiting for the camera. If the browser is asking for permission, tap Allow.'), 6000);
     try {
-      if (!navigator.mediaDevices) throw new Error('this page must be opened over HTTPS or localhost');
-      detect = await detectReady;
-      // Full HD: small barcodes need the pixels, a 720p feed only reads them from very close up.
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
+      stream = await openCamera();
+      $('video').srcObject = stream;
+      // a blocked preview is not a blocked camera, so give it its own words rather than the permission advice
+      await $('video').play().catch(e => { throw new Error(`the video preview was blocked (${e.name})`); });
     } catch (e) {
-      note(`Camera unavailable: ${e.message}. Scan from a photo or type the EAN instead.`, true);
+      if (stream) stopCamera();
+      note(`${CAMERA_HELP[e.name] ?? 'The camera did not start.'} You can still scan from a photo or type the EAN. (${e.name}: ${e.message})`, true);
       return;
+    } finally {
+      clearTimeout(slow);
+      $('camera').disabled = false;
     }
     const mine = stream;
-    $('video').srcObject = stream;
-    await $('video').play();
     $('viewfinder').classList.add('on');
     $('camera').textContent = 'Stop camera';
     note('Scanning. Hold the barcode steady inside the frame. Not reading? Move it further away until it looks sharp.');
+    const detect = await detectReady; // after the camera is up, so a slow detector never holds the camera back
     let fails = 0, seen;
     (async function tick() {
       if (stream !== mine) return;
