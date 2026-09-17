@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EAN scanner</title>
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -47,8 +48,13 @@
   button { font: 500 1rem/1 Barlow, system-ui, sans-serif; border: 0; border-radius: 8px; padding: .85rem 1.1rem;
     color: #fff; background: var(--ink); cursor: pointer; }
   #camera { position: absolute; z-index: 2; left: 50%; bottom: 1rem; transform: translateX(-50%); background: var(--laser); white-space: nowrap; }
-  .note { margin: .5rem 0 0; color: var(--laser); }
+  .note { margin: .5rem 0 0; color: var(--steel); }
+  .note.error { color: var(--laser); }
   .note:empty { display: none; }
+  #photo { position: absolute; opacity: 0; pointer-events: none; }
+  .photo { display: block; margin-top: .75rem; padding: .85rem 1.1rem; border: 1.5px solid var(--line); border-radius: 8px;
+    font-weight: 500; line-height: 1; text-align: center; background: var(--card); cursor: pointer; }
+  #photo:focus-visible + .photo { outline: 2px solid var(--laser); outline-offset: 2px; }
 
   #manual { margin-top: 1.25rem; }
   #manual label { display: block; margin-bottom: .35rem; font-weight: 500; font-size: .875rem; color: var(--steel); }
@@ -89,6 +95,8 @@
       <button id="camera" type="button">Start camera</button>
     </div>
     <p id="camera-note" class="note" role="status"></p>
+    <input id="photo" type="file" accept="image/*" capture="environment">
+    <label class="photo" for="photo">Scan from a photo</label>
     <form id="manual">
       <label for="ean">Or type the EAN (a USB scanner works here too)</label>
       <div class="row">
@@ -157,36 +165,77 @@
     $('ean').select(); // next scan from a USB scanner overwrites this one
   };
 
+  function note(text, error = false) {
+    $('camera-note').textContent = text;
+    $('camera-note').classList.toggle('error', error);
+  }
+
+  const detectorReady = (async () => {
+    // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
+    const native = 'BarcodeDetector' in window && (await BarcodeDetector.getSupportedFormats().catch(() => [])).includes('ean_13');
+    return new (native ? BarcodeDetector : BarcodeDetectionAPI.BarcodeDetector)({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
+  })();
+
   async function startCamera() {
-    $('camera-note').textContent = '';
+    note('Starting camera…');
+    let detector;
     try {
       if (!navigator.mediaDevices) throw new Error('this page must be opened over HTTPS or localhost');
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } } });
+      detector = await detectorReady;
+      // Full HD: small barcodes need the pixels, a 720p feed only reads them from very close up.
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
     } catch (e) {
-      $('camera-note').textContent = `Camera unavailable: ${e.message}. Type the EAN instead.`;
+      note(`Camera unavailable: ${e.message}. Scan from a photo or type the EAN instead.`, true);
       return;
     }
-    // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
-    const native = 'BarcodeDetector' in window && (await BarcodeDetector.getSupportedFormats()).includes('ean_13');
-    const detector = new (native ? BarcodeDetector : BarcodeDetectionAPI.BarcodeDetector)({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
     const mine = stream;
     $('video').srcObject = stream;
     await $('video').play();
     $('viewfinder').classList.add('on');
     $('camera').textContent = 'Stop camera';
+    note("Scanning. Hold the barcode flat inside the frame, about a hand's width from the camera.");
+    let fails = 0;
     (async function tick() {
       if (stream !== mine) return;
-      const [hit] = await detector.detect($('video')).catch(() => []);
-      if (hit && hit.rawValue !== last) show(hit.rawValue);
+      try {
+        const [hit] = await detector.detect($('video'));
+        fails = 0;
+        if (hit && hit.rawValue !== last) show(hit.rawValue);
+      } catch (e) {
+        if (++fails > 10) { // one-off errors happen while the video warms up; a streak means it's broken
+          stopCamera();
+          note(`Scanner stopped: ${e.message}. Scan from a photo or type the EAN instead.`, true);
+          return;
+        }
+      }
       setTimeout(tick, 120);
     })();
   }
+
+  $('photo').onchange = async e => {
+    const file = e.target.files[0];
+    e.target.value = ''; // so picking the same photo again still fires
+    if (!file) return;
+    try {
+      const [hit] = await (await detectorReady).detect(await createImageBitmap(file));
+      if (hit) { note(''); show(hit.rawValue); }
+      else {
+        $('found').hidden = $('missing').hidden = true; // don't leave the previous product up as if it matched
+        $('empty').hidden = false;
+        last = '';
+        note('No barcode found in that photo. Get closer, so the barcode fills most of the picture.', true);
+      }
+    } catch (err) {
+      note(`Could not read that photo: ${err.message}`, true);
+    }
+  };
 
   function stopCamera() {
     stream.getTracks().forEach(t => t.stop());
     stream = $('video').srcObject = null;
     $('viewfinder').classList.remove('on');
     $('camera').textContent = 'Start camera';
+    note('');
   }
 
   $('camera').onclick = () => stream ? stopCamera() : startCamera();
