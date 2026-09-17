@@ -129,7 +129,7 @@
 </main>
 
 <script src="products.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/barcode-detector@3.2.2/dist/iife/ponyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@undecaf/zbar-wasm@0.11.0/dist/inlined/index.js"></script>
 <script>
   const $ = id => document.getElementById(id);
   const key = code => code.replace(/\D/g, '').replace(/^0+/, ''); // same normalisation as build.py
@@ -170,18 +170,34 @@
     $('camera-note').classList.toggle('error', error);
   }
 
-  const detectorReady = (async () => {
+  // Resolves to detect(videoOrBitmap) -> EAN string or undefined.
+  // Native detector where it really reads EANs (Android, macOS), ZBar everywhere else. ZBar rather than ZXing:
+  // on webcam-grade frames (blur, noise, tilt) it read twice as many EANs in our benchmark, with no misreads.
+  const detectReady = (async () => {
     // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
     const native = 'BarcodeDetector' in window && (await BarcodeDetector.getSupportedFormats().catch(() => [])).includes('ean_13');
-    return new (native ? BarcodeDetector : BarcodeDetectionAPI.BarcodeDetector)({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
+    if (native) {
+      const detector = new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
+      return async source => (await detector.detect(source))[0]?.rawValue;
+    }
+    const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d', { willReadFrequently: true });
+    return async source => {
+      const w = source.videoWidth || source.width, h = source.videoHeight || source.height;
+      const k = Math.min(1, 2560 / Math.max(w, h)); // ponytail: big photos are shrunk to 2560px to bound memory; tile them if tiny barcodes in huge photos matter
+      canvas.width = w * k;
+      canvas.height = h * k;
+      ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+      const symbols = await zbarWasm.scanImageData(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      return symbols.find(s => /EAN|UPC/.test(s.typeName))?.decode(); // ignore QR / Code128 that share the packaging
+    };
   })();
 
   async function startCamera() {
     note('Starting camera…');
-    let detector;
+    let detect;
     try {
       if (!navigator.mediaDevices) throw new Error('this page must be opened over HTTPS or localhost');
-      detector = await detectorReady;
+      detect = await detectReady;
       // Full HD: small barcodes need the pixels, a 720p feed only reads them from very close up.
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
     } catch (e) {
@@ -193,14 +209,15 @@
     await $('video').play();
     $('viewfinder').classList.add('on');
     $('camera').textContent = 'Stop camera';
-    note("Scanning. Hold the barcode flat inside the frame, about a hand's width from the camera.");
-    let fails = 0;
+    note('Scanning. Hold the barcode steady inside the frame. Not reading? Move it slowly further away: a small sharp barcode reads, a big blurry one does not.');
+    let fails = 0, seen;
     (async function tick() {
       if (stream !== mine) return;
       try {
-        const [hit] = await detector.detect($('video'));
+        const code = await detect($('video'));
         fails = 0;
-        if (hit && hit.rawValue !== last) show(hit.rawValue);
+        if (code && code === seen && code !== last) show(code); // two frames must agree, a lone read can be a misread
+        seen = code;
       } catch (e) {
         if (++fails > 10) { // one-off errors happen while the video warms up; a streak means it's broken
           stopCamera();
@@ -217,8 +234,8 @@
     e.target.value = ''; // so picking the same photo again still fires
     if (!file) return;
     try {
-      const [hit] = await (await detectorReady).detect(await createImageBitmap(file));
-      if (hit) { note(''); show(hit.rawValue); }
+      const code = await (await detectReady)(await createImageBitmap(file));
+      if (code) { note(''); show(code); }
       else {
         $('found').hidden = $('missing').hidden = true; // don't leave the previous product up as if it matched
         $('empty').hidden = false;
