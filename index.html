@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EAN scanner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bench: #eef1f5; --card: #fff; --ink: #14171f; --steel: #5f6b7e; --line: #d5dbe5; --laser: #e4002b;
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bench); color: var(--ink); font: 400 1rem/1.5 Barlow, system-ui, sans-serif; }
+  :focus-visible { outline: 2px solid var(--laser); outline-offset: 2px; }
+
+  .bench { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; display: grid; gap: 1.5rem; }
+  .bench > header h1 { margin: 0; font: 700 2.5rem/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+  .bench > header p { margin: .25rem 0 0; color: var(--steel); }
+  @media (min-width: 52rem) {
+    .bench { grid-template-columns: 1fr 1fr; align-items: start; }
+    .bench > header { grid-column: 1 / -1; }
+  }
+
+  /* scanner */
+  .viewfinder { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 12px; background: var(--ink); }
+  .viewfinder video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .viewfinder::before { /* corner brackets */
+    content: ""; position: absolute; inset: 16% 10%; z-index: 1; pointer-events: none;
+    --c: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
+    background: var(--c) top left / 28px 2px, var(--c) top left / 2px 28px,
+      var(--c) top right / 28px 2px, var(--c) top right / 2px 28px,
+      var(--c) bottom left / 28px 2px, var(--c) bottom left / 2px 28px,
+      var(--c) bottom right / 28px 2px, var(--c) bottom right / 2px 28px;
+    background-repeat: no-repeat;
+  }
+  .laser { position: absolute; left: 10%; right: 10%; top: 50%; z-index: 1; height: 2px; opacity: .45;
+    background: var(--laser); box-shadow: 0 0 12px 2px rgba(228, 0, 43, .7); }
+  .viewfinder.on .laser { opacity: 1; animation: sweep 2.2s ease-in-out infinite alternate; }
+  @keyframes sweep { from { top: 22%; } to { top: 78%; } }
+  @media (prefers-reduced-motion: reduce) { .viewfinder.on .laser { animation: none; } }
+
+  button { font: 500 1rem/1 Barlow, system-ui, sans-serif; border: 0; border-radius: 8px; padding: .85rem 1.1rem;
+    color: #fff; background: var(--ink); cursor: pointer; }
+  #camera { position: absolute; z-index: 2; left: 50%; bottom: 1rem; transform: translateX(-50%); background: var(--laser); white-space: nowrap; }
+  .note { margin: .5rem 0 0; color: var(--laser); }
+  .note:empty { display: none; }
+
+  #manual { margin-top: 1.25rem; }
+  #manual label { display: block; margin-bottom: .35rem; font-weight: 500; font-size: .875rem; color: var(--steel); }
+  #manual .row { display: flex; gap: .5rem; }
+  #ean { flex: 1; min-width: 0; font: 400 1.125rem/1 var(--mono); padding: .75rem; color: var(--ink);
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 8px; }
+
+  /* result */
+  .empty, .missing, #found { margin: 0; border-radius: 12px; }
+  .empty { padding: 2rem 1.25rem; border: 1.5px dashed var(--line); color: var(--steel); }
+  .missing { padding: 1.25rem; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--laser); }
+  #found { overflow: hidden; background: var(--card); border: 1px solid var(--line); }
+  .swatch { height: 5rem; border-bottom: 1px solid var(--line);
+    background: repeating-linear-gradient(45deg, var(--line) 0 6px, transparent 6px 12px); /* colour unknown */ }
+  .detail { padding: 1rem 1.25rem 1.25rem; }
+  .eyebrow, dt { font: 400 .75rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--steel); }
+  .eyebrow { margin: 0; }
+  .colour { margin: .25rem 0 1rem; font: 700 clamp(2.5rem, 9vw, 4rem)/.95 var(--display); text-transform: uppercase; }
+  figure { margin: 0; }
+  #image { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 8px; background: var(--bench); }
+  figcaption { padding: 1rem; border-radius: 8px; background: var(--bench); color: var(--steel); }
+  #name { margin: 1rem 0; font: 500 1.0625rem/1.4 Barlow, system-ui, sans-serif; }
+  dl { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 0; }
+  dd { margin: .35rem 0 0; font: 500 1rem/1 var(--mono); }
+</style>
+</head>
+<body>
+<main class="bench">
+  <header>
+    <h1>EAN scanner</h1>
+    <p>Scan a barcode to check the product and its colour.</p>
+  </header>
+
+  <section aria-label="Scan a barcode">
+    <div class="viewfinder" id="viewfinder">
+      <video id="video" playsinline muted></video>
+      <span class="laser"></span>
+      <button id="camera" type="button">Start camera</button>
+    </div>
+    <p id="camera-note" class="note" role="status"></p>
+    <form id="manual">
+      <label for="ean">Or type the EAN (a USB scanner works here too)</label>
+      <div class="row">
+        <input id="ean" inputmode="numeric" autocomplete="off" placeholder="8906209350897" autofocus>
+        <button>Find product</button>
+      </div>
+    </form>
+  </section>
+
+  <section aria-label="Scanned product" aria-live="polite">
+    <p id="empty" class="empty">Nothing scanned yet. Point the camera at a barcode, or type the EAN.</p>
+    <p id="missing" class="missing" hidden></p>
+    <article id="found" hidden>
+      <div class="swatch" id="swatch"></div>
+      <div class="detail">
+        <p class="eyebrow">Colour</p>
+        <p class="colour" id="colour"></p>
+        <figure>
+          <img id="image" alt="" referrerpolicy="no-referrer">
+          <figcaption id="image-note" hidden>Image didn't load. Check the Drive file is shared with "Anyone with the link".</figcaption>
+        </figure>
+        <h2 id="name"></h2>
+        <dl>
+          <div><dt>EAN</dt><dd id="code"></dd></div>
+          <div><dt>SKU</dt><dd id="sku"></dd></div>
+        </dl>
+      </div>
+    </article>
+  </section>
+</main>
+
+<script src="products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/barcode-detector@3.2.2/dist/iife/ponyfill.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const key = code => code.replace(/\D/g, '').replace(/^0+/, ''); // same normalisation as build.py
+  let stream = null, last = '';
+
+  function show(code) {
+    last = code;
+    const p = PRODUCTS[key(code)];
+    $('empty').hidden = true;
+    $('found').hidden = !p;
+    $('missing').hidden = !!p;
+    if (!p) {
+      $('missing').textContent = `No product with EAN ${code}. Check the code, or add it to products.xlsx and run build.py.`;
+      return;
+    }
+    $('swatch').style.background = p.hex;
+    $('colour').textContent = p.colour || 'Not listed';
+    $('image-note').hidden = true;
+    $('image').hidden = false;
+    $('image').src = p.image;
+    $('image').alt = p.name;
+    $('name').textContent = p.name;
+    $('code').textContent = code;
+    $('sku').textContent = p.sku;
+    navigator.vibrate?.(80);
+  }
+
+  $('image').onerror = () => { $('image').hidden = true; $('image-note').hidden = false; };
+
+  $('manual').onsubmit = e => {
+    e.preventDefault();
+    if (key($('ean').value)) show($('ean').value.trim());
+    $('ean').select(); // next scan from a USB scanner overwrites this one
+  };
+
+  async function startCamera() {
+    $('camera-note').textContent = '';
+    try {
+      if (!navigator.mediaDevices) throw new Error('this page must be opened over HTTPS or localhost');
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } } });
+    } catch (e) {
+      $('camera-note').textContent = `Camera unavailable: ${e.message}. Type the EAN instead.`;
+      return;
+    }
+    // Chrome on Windows/Linux exposes BarcodeDetector but supports no formats, so ask before trusting it.
+    const native = 'BarcodeDetector' in window && (await BarcodeDetector.getSupportedFormats()).includes('ean_13');
+    const detector = new (native ? BarcodeDetector : BarcodeDetectionAPI.BarcodeDetector)({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e'] });
+    const mine = stream;
+    $('video').srcObject = stream;
+    await $('video').play();
+    $('viewfinder').classList.add('on');
+    $('camera').textContent = 'Stop camera';
+    (async function tick() {
+      if (stream !== mine) return;
+      const [hit] = await detector.detect($('video')).catch(() => []);
+      if (hit && hit.rawValue !== last) show(hit.rawValue);
+      setTimeout(tick, 120);
+    })();
+  }
+
+  function stopCamera() {
+    stream.getTracks().forEach(t => t.stop());
+    stream = $('video').srcObject = null;
+    $('viewfinder').classList.remove('on');
+    $('camera').textContent = 'Start camera';
+  }
+
+  $('camera').onclick = () => stream ? stopCamera() : startCamera();
+</script>
+</body>
+</html>
