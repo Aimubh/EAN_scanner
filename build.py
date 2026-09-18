@@ -1,5 +1,5 @@
 """Excel -> products.js.  Run after editing the sheet:  python build.py [path.xlsx]
-Columns: Product Name | EAN | SKU | Image Link | Colour (optional, overrides the guess)
+Columns: Product Name | EAN | SKU | Images (or "Image Link") | Colour (optional, overrides the guess)
 """
 import json, re, sys
 from pathlib import Path
@@ -10,9 +10,12 @@ HERE = Path(__file__).parent
 # name -> swatch hex. Multi-word names first so "dark blue" wins over "blue".
 # ponytail: colour is guessed from the name/SKU text; add a "Colour" column when the guess falls short.
 COLOURS = {
-    "dark blue": "#1f2f5c", "light blue": "#9cc4e4",
-    "black": "#1b1c1f", "grey": "#8a8d91", "blue": "#2f5fa8",
-    "white": "#f4f4f2", "cream": "#ece2cc",
+    "dark blue": "#1f2f5c", "light blue": "#9cc4e4", "baby pink": "#f4c2d0", "pista green": "#93c572",
+    "dark green": "#1f5e3a", "rose red": "#c21e56", "multi color": "", "multi-color": "", "multicolor": "",
+    "black": "#1b1c1f", "grey": "#8a8d91", "blue": "#2f5fa8", "white": "#f4f4f2", "cream": "#ece2cc",
+    "pink": "#e8a0bf", "purple": "#6b3fa0", "green": "#3a8f4a", "cyan": "#3ec1d3", "teal": "#1f8a8a",
+    "red": "#c62828", "brown": "#6e4b2a", "peach": "#f7c6a3", "lavender": "#b7a3d9", "silver": "#c0c4c8",
+    "gold": "#d4af37", "golden": "#d4af37",  # not "transparent"/"clear": they describe windows and displays, not the item
 }
 IN_NAME = re.compile(r"\b(" + "|".join(COLOURS) + r")\b", re.I)
 
@@ -50,7 +53,7 @@ def build(xlsx):
         colour = (get("colour") or get("color")).lower() or colour_of(get("product name"), get("sku"))
         products[key] = {
             "name": get("product name"), "sku": get("sku"), "colour": colour,
-            "hex": COLOURS.get(colour, ""), "image": image_url(get("image link")),
+            "hex": COLOURS.get(colour, ""), "image": image_url(get("images") or get("image link") or get("image")),
         }
     out = HERE / "products.js"
     out.write_text("const PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n", encoding="utf-8")
@@ -61,5 +64,7 @@ if __name__ == "__main__":
     assert colour_of("Organizer Bag (Dark Blue)", "x") == "dark blue"
     assert colour_of("Black zipper bag - Grey", "x") == "grey"
     assert colour_of("Jewellery Organiser", "sqboxcream") == "cream"
+    assert colour_of("Foldable Bag (Rose Red)", "fbag") == "rose red"
+    assert colour_of("Jewellery Organiser", "jcasegolden") == "golden"
     assert ean_key(8906209350897.0) == ean_key("0 8906209350897") == "8906209350897"
     build(sys.argv[1] if len(sys.argv) > 1 else HERE / "products.xlsx")
