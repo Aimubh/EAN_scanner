@@ -1,15 +1,41 @@
 """Label PDFs -> labels/*.png + labels.js, so the app reads ASIN labels and shows each product's labels.
-Run when the labels change:  python labels.py <labels folder>
+Run when the labels change:  python labels.py <labels folder>      (needs Node, to run zbar.js)
 The folder holds one subfolder per label set, and the sheet that lists each set's SKUs ("lable and sku, images.xlsx").
 """
-import json, re, sys
+import json, re, subprocess, sys, tempfile
 from pathlib import Path
 import pymupdf
 from openpyxl import load_workbook
 
 HERE = Path(__file__).parent
-CODE = re.compile(r"\b(B0[0-9A-Z]{8}|\d{13})\b")  # every label prints its barcode's value: an Amazon ASIN or an EAN-13
 SETS = {"3x2 inch lables": "E-trade", "3x2 lable Bigbasket": "Bigbasket", "3x2 lable UAE LABELS PRODUCT WISE": "UAE"}  # folder -> caption
+
+# The printed text is no guide to the bars: some labels print the ASIN while their barcode holds the EAN.
+# So read the bars, with the app's own decoder (zbar.js), and the import sees exactly what the phones will.
+DECODE = """
+const fs = require('fs'), [zbar, list] = process.argv.slice(1);
+global.__dirname = require('path').dirname(zbar);
+require('vm').runInThisContext(fs.readFileSync(zbar, 'utf8'));
+(async () => {
+  const out = [];
+  for (const [file, width, height] of JSON.parse(fs.readFileSync(list, 'utf8')))
+    out.push((await zbarWasm.scanGrayBuffer(Uint8Array.from(fs.readFileSync(file)).buffer, width, height)).map(s => s.decode()));
+  console.log(JSON.stringify(out));
+})();
+"""
+
+
+def barcodes(pixmaps):
+    """The barcode values on each grey pixmap."""
+    with tempfile.TemporaryDirectory() as tmp:
+        pages = []
+        for i, pix in enumerate(pixmaps):
+            (Path(tmp) / f"{i}.raw").write_bytes(pix.samples)
+            pages.append([str(Path(tmp) / f"{i}.raw"), pix.width, pix.height])
+        (Path(tmp) / "pages.json").write_text(json.dumps(pages))
+        run = subprocess.run(["node", "-e", DECODE, str(HERE / "zbar.js"), str(Path(tmp) / "pages.json")],
+                             capture_output=True, text=True, check=True)
+        return json.loads(run.stdout)
 
 
 def norm(sku):
@@ -42,20 +68,21 @@ def main(root):
     (HERE / "labels").mkdir(exist_ok=True)
     for old in (HERE / "labels").glob("*.png"):
         old.unlink()
-    labels = {}
+    pages = []
     for pdf in sorted(root.rglob("*.pdf")):
         group = SETS.get(pdf.relative_to(root).parts[0], pdf.relative_to(root).parts[0])
         for page in pymupdf.open(pdf):
-            text = page.get_text()
-            codes, sku = set(CODE.findall(text)), sku_on(f"{pdf.stem} {text}".lower(), known)
-            if len(codes) != 1 or not sku:
-                print(f"skipped {pdf.name} page {page.number + 1}: codes {codes or 'none'}, SKU {sku or 'not found'}")
-                continue
-            code = codes.pop()
-            src = f"labels/{norm(group)}-{code}.png"
-            if src not in labels:  # most labels are both in their own PDF and in the combined one
-                page.get_pixmap(dpi=200, colorspace=pymupdf.csGRAY).save(HERE / src)
-                labels[src] = {"code": code, "sku": product_sku.get(norm(sku), sku), "set": group, "src": src}
+            sku = sku_on(f"{pdf.stem} {page.get_text()}".lower(), known)
+            pages.append((pdf, page.number, group, sku, page.get_pixmap(dpi=200, colorspace=pymupdf.csGRAY)))
+    labels = {}
+    for (pdf, number, group, sku, pix), codes in zip(pages, barcodes([p[-1] for p in pages])):
+        if len(codes) != 1 or not sku:
+            print(f"skipped {pdf.name} page {number + 1}: barcodes {codes or 'none'}, SKU {sku or 'not found'}")
+            continue
+        src = f"labels/{norm(group)}-{codes[0]}.png"
+        if src not in labels:  # most labels are both in their own PDF and in the combined one
+            pix.save(HERE / src)
+            labels[src] = {"code": codes[0], "sku": product_sku.get(norm(sku), sku), "set": group, "src": src}
     for label in labels.values():
         if norm(label["sku"]) not in product_sku:
             print(f"no product for SKU {label['sku']} ({label['set']} label {label['code']}): add it to products.xlsx")

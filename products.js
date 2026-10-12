@@ -25,14 +25,14 @@ const PRODUCTS = {
   "sku": "wbblue",
   "colour": "blue",
   "hex": "#2f5fa8",
-  "image": "https://drive.google.com/thumbnail?id=15HUtEcJ2tGusgzVVhhoq-5qmjMSoGZNT&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=1Z5IHMrur4jISo5J06IUiYsIOppnLjFGU&sz=w1000"
  },
  "5949999051066": {
   "name": "Lazer Makeup Travel Pouch, Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Pink",
   "sku": "wbpink",
   "colour": "pink",
   "hex": "#e8a0bf",
-  "image": "https://drive.google.com/thumbnail?id=16wYo25IhB0a2mpq65mARhF7_6MDoF1Hf&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=1KZDAH9yQY5DsoWWNNm_yjCjEh2ga60Be&sz=w1000"
  },
  "5949998989872": {
   "name": "Lazer Makeup Travel Pouch, Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Cream",

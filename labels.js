@@ -270,6 +270,24 @@ const LABELS = [
   "src": "labels/etrade-B0F1YLRBC7.png"
  },
  {
+  "code": "8906209350477",
+  "sku": "fstool-pack-6",
+  "set": "E-trade",
+  "src": "labels/etrade-8906209350477.png"
+ },
+ {
+  "code": "5949998576331",
+  "sku": "wbblue",
+  "set": "E-trade",
+  "src": "labels/etrade-5949998576331.png"
+ },
+ {
+  "code": "5949999051066",
+  "sku": "wbpink",
+  "set": "E-trade",
+  "src": "labels/etrade-5949999051066.png"
+ },
+ {
   "code": "5949998658815",
   "sku": "goblack",
   "set": "Bigbasket",
