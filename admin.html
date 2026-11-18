@@ -60,6 +60,10 @@
     background: repeating-linear-gradient(45deg, var(--line) 0 4px, transparent 4px 8px); }
   .colour { white-space: nowrap; font-size: .9375rem; }
   .colour.none { color: var(--steel); }
+  .edit { padding: .4rem .7rem; font-size: .875rem; color: var(--ink); background: var(--bench); border: 1.5px solid var(--line); }
+  .edit:hover { border-color: var(--ink); }
+  #cancel { color: var(--ink); background: var(--bench); border: 1.5px solid var(--line); }
+  #add-card.editing { border-color: var(--laser); box-shadow: inset 3px 0 var(--laser); }
 </style>
 </head>
 <body>
@@ -97,6 +101,7 @@
       </div>
       <div class="actions">
         <button id="save">Add product</button>
+        <button type="button" id="cancel" hidden>Cancel</button>
         <p id="said" class="note" role="status"></p>
       </div>
     </form>
@@ -113,7 +118,7 @@
     </div>
     <div class="scroll">
       <table>
-        <thead><tr><th></th><th>Product name</th><th>EAN</th><th>SKU</th><th>Colour</th></tr></thead>
+        <thead><tr><th></th><th>Product name</th><th>EAN</th><th>SKU</th><th>Colour</th><th></th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
@@ -127,7 +132,7 @@
   const escape = text => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // the key rides in the fragment, which browsers never send to the server or put in a Referer header
   const KEY = new URLSearchParams(location.hash.slice(1)).get('key') ?? '';
-  let PRODUCTS = {}, fresh = '';
+  let PRODUCTS = {}, fresh = '', canWrite = false, editing = '';
 
   const say = (text, error = false) => {
     $('said').textContent = text;
@@ -150,7 +155,8 @@
       tr.innerHTML = `<td>${thumb}</td><td class="name">${escape(p.name)}</td><td class="code">${ean}</td>`
         + `<td class="code">${escape(p.sku)}</td>`
         + `<td class="colour${p.colour ? '' : ' none'}"><span class="swatch" style="background:${escape(p.hex)}"></span>`
-        + `${p.colour || 'not listed'}</td>`;
+        + `${p.colour || 'not listed'}</td>`
+        + `<td>${canWrite ? `<button type="button" class="edit" data-ean="${ean}">Edit</button>` : ''}</td>`;
       return tr;
     }));
   }
@@ -162,6 +168,41 @@
 
   $('q').oninput = render;
 
+  // clicking Edit loads that product into the same form; the only difference on save is `replacing`,
+  // which tells the server to rewrite that row instead of appending one
+  $('rows').onclick = e => {
+    const ean = e.target.closest('.edit')?.dataset.ean;
+    if (ean && PRODUCTS[ean]) startEdit(ean);
+  };
+
+  function startEdit(ean) {
+    const p = PRODUCTS[ean];
+    editing = ean;
+    $('name').value = p.name;
+    $('ean').value = ean;
+    $('sku').value = p.sku;
+    $('colour').value = p.colour || '';
+    $('image').value = p.image;
+    $('add-title').textContent = `Edit ${p.sku}`;
+    $('save').textContent = 'Save changes';
+    $('cancel').hidden = false;
+    $('add-card').classList.add('editing');
+    say('');
+    $('add-card').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    $('name').focus();
+  }
+
+  function stopEdit() {
+    editing = '';
+    $('add').reset();
+    $('add-title').textContent = 'Add a product';
+    $('save').textContent = 'Add product';
+    $('cancel').hidden = true;
+    $('add-card').classList.remove('editing');
+  }
+
+  $('cancel').onclick = () => { stopEdit(); say(''); };
+
   $('add').onsubmit = async e => {
     e.preventDefault();
     $('save').disabled = true;
@@ -170,17 +211,22 @@
       const reply = await fetch('/api/admin', {
         method: 'POST',
         headers: { 'X-Admin-Key': KEY },
-        body: JSON.stringify(Object.fromEntries(new FormData($('add')))),
+        body: JSON.stringify({ ...Object.fromEntries(new FormData($('add'))), replacing: editing }),
       });
       const out = await reply.json();
       if (!reply.ok) throw new Error(out.error);
+      const edited = !!editing;
       fresh = out.ean;
-      $('add').reset();
+      stopEdit();
       $('q').value = '';
       await load();
       // live, the commit redeploys over the next minute, so products.js has not caught up: show it anyway
-      if (out.product && !PRODUCTS[out.ean]) { PRODUCTS[out.ean] = out.product; render(); }
-      say(`Added ${out.ean}. ${out.note ?? ''}`);
+      if (out.product && !(out.ean in PRODUCTS && PRODUCTS[out.ean].name === out.product.name)) {
+        if (out.replaced && out.replaced !== out.ean) delete PRODUCTS[out.replaced];
+        PRODUCTS[out.ean] = out.product;
+        render();
+      }
+      say(`${edited ? 'Updated' : 'Added'} ${out.ean}. ${out.note ?? ''}`);
       $('rows').querySelector('tr.new')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } catch (err) {
       // a dead fetch means nothing is answering /api/admin, which otherwise looks like a rejected row
@@ -196,7 +242,8 @@
   (async () => {
     const reply = await fetch('/api/admin', { headers: { 'X-Admin-Key': KEY } }).catch(() => null);
     const api = reply?.ok ? await reply.json().catch(() => null) : null;
-    if (api?.write) {
+    canWrite = !!api?.write;
+    if (canWrite) {
       $('colour').append(...api.colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
       $('add-card').hidden = false;
       $('intro').textContent = api.where === 'this PC'

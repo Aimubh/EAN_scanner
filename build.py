@@ -42,10 +42,20 @@ def image_url(link):
 IMAGE_HEADERS = ("images", "image link", "image")  # whichever one the sheet uses
 
 
-def add_row(ws, form):
-    """Validate the form and append it to the open worksheet, returning the EAN as this module keys it.
-    Raises ValueError on anything the sheet should not take. Shared by admin.py and api/admin.py, so a
-    product added on this PC and one added from the live page go in under exactly the same rules."""
+def find_row(ws, ean_column, ean):
+    """The row holding this EAN, or None. Compared through ean_key, so the sheet's numeric cells and
+    a typed-in '0 8906 2093 5089 7' land on the same product."""
+    for cell in ws[ws.cell(1, ean_column).column_letter][1:]:
+        if cell.value and ean_key(cell.value) == ean:
+            return cell.row
+    return None
+
+
+def save_row(ws, form, replacing=None):
+    """Validate the form and write it to the sheet: a new row, or over the row holding `replacing`.
+    Returns the EAN as this module keys it, and raises ValueError on anything the sheet should not
+    take. Shared by admin.py and api/admin.py, so a product saved on this PC and one saved from the
+    live page go in under exactly the same rules."""
     get = lambda f: str(form.get(f) or "").strip()
     name, sku, image, colour = get("name"), get("sku"), get("image"), get("colour").lower()
     ean = ean_key(get("ean"))
@@ -60,18 +70,26 @@ def add_row(ws, form):
     for required in ("product name", "ean", "sku"):
         if required not in col:
             raise ValueError(f"the sheet has no {required!r} column")
-    taken = {ean_key(c.value) for c in ws[ws.cell(1, col["ean"]).column_letter][1:] if c.value}
-    if ean in taken:
-        raise ValueError(f"EAN {ean} is already in the catalogue")
-    row = ws.max_row + 1
+    holder = find_row(ws, col["ean"], ean)
+    if replacing is None:
+        if holder:
+            raise ValueError(f"EAN {ean} is already in the catalogue")
+        row = ws.max_row + 1
+    else:
+        row = find_row(ws, col["ean"], ean_key(replacing))
+        if row is None:
+            raise ValueError(f"EAN {replacing} is not in the catalogue, so there is nothing to update")
+        if holder and holder != row:  # the EAN was edited onto one that another product already owns
+            raise ValueError(f"EAN {ean} already belongs to another product")
     if colour and "colour" not in col:  # this module reads a Colour column when there is one, so make it on first use
         col["colour"] = ws.max_column + 1
         ws.cell(1, col["colour"], "Colour")
     cells = {"product name": name, "ean": int(ean), "sku": sku, "colour": colour,
              next((h for h in IMAGE_HEADERS if h in col), "images"): image}
     for header, value in cells.items():
-        if header in col and value != "":
-            ws.cell(row, col[header], value)
+        if header in col:  # written even when empty, so clearing a colour or an image on an edit sticks
+            # .value, not ws.cell(r, c, v): that form ignores a None and would leave the old text in place
+            ws.cell(row, col[header]).value = value if value != "" else None
     return ean
 
 

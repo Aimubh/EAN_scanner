@@ -60,17 +60,20 @@ def commit(files, message):
     return made
 
 
-def add_product(form):
-    """Append the row to the repo's products.xlsx, rebuild products.js, commit both. Returns (ean, sha)."""
+def save_product(form):
+    """Write the row into the repo's products.xlsx, rebuild products.js, commit both. (ean, sha, products).
+    form['replacing'] is the EAN of the product being edited; without it this is a new product."""
     sheet = fetch("products.xlsx")
     workbook = load_workbook(io.BytesIO(sheet))
-    ean = build.add_row(workbook.active, form)  # raises ValueError before anything is committed
+    replacing = form.get("replacing") or None
+    ean = build.save_row(workbook.active, form, replacing)  # raises ValueError before anything is committed
     out = io.BytesIO()
     workbook.save(out)
     updated = out.getvalue()
     products = build.catalogue(io.BytesIO(updated))
+    what = f"Update {replacing}" if replacing else "Add"
     sha = commit({"products.xlsx": updated, "products.js": build.render(products).encode("utf-8")},
-                 f"Add {form.get('name', '')[:60]} ({ean}) from the live admin panel")
+                 f"{what}: {form.get('name', '')[:60]} ({ean}), from the live admin panel")
     return ean, sha, products
 
 
@@ -99,8 +102,8 @@ class handler(BaseHTTPRequestHandler):
         if not TOKEN:
             return self.reply(503, {"error": "GITHUB_TOKEN is not set on this deployment, so nothing can be saved."})
         try:
-            ean, sha, products = add_product(form)
-            self.reply(200, {"ean": ean, "product": products[ean],
+            ean, sha, products = save_product(form)
+            self.reply(200, {"ean": ean, "product": products[ean], "replaced": form.get("replacing") or "",
                              "note": f"Committed {sha[:7]}, {len(products)} products. Live on the phones in about a minute."})
         except ValueError as e:
             self.reply(400, {"error": str(e)})
@@ -137,7 +140,7 @@ if __name__ == "__main__":
     fetch = lambda path: sheet.read_bytes()
     commit = lambda files, message: (sent.update(files), sent.update(msg=message), "deadbeefcafe1234")[2]
 
-    ean, sha, products = add_product({"name": "Wire Test Pouch (Teal)", "ean": "999 000 222 111", "sku": "zzwire"})
+    ean, sha, products = save_product({"name": "Wire Test Pouch (Teal)", "ean": "999 000 222 111", "sku": "zzwire"})
     assert ean == "999000222111", ean
     assert products[ean] == {"name": "Wire Test Pouch (Teal)", "sku": "zzwire", "colour": "teal",
                              "hex": "#1f8a8a", "image": ""}, products[ean]
@@ -148,11 +151,20 @@ if __name__ == "__main__":
     assert build.catalogue(io.BytesIO(sent["products.xlsx"])) == products
     assert sheet.read_bytes() == fetch("products.xlsx"), "the real sheet must not have been touched"
 
+    # editing an existing product rewrites it in place rather than adding a second one
+    ean2, _, products2 = save_product({"name": "Renamed Travel Bottles", "ean": "8906209350200",
+                                       "sku": "tsbottle2", "colour": "red", "replacing": "8906209350200"})
+    assert ean2 == "8906209350200", ean2
+    assert len(products2) == len(before), (len(products2), len(before))
+    assert products2[ean2] == {"name": "Renamed Travel Bottles", "sku": "tsbottle2", "colour": "red",
+                               "hex": "#c62828", "image": ""}, products2[ean2]
+    assert build.catalogue(io.BytesIO(sent["products.xlsx"])) == products2
+
     for bad, why in (({"name": "n", "ean": "abc", "sku": "s"}, "digit"),
                      ({"name": "n", "ean": "1", "sku": "s", "colour": "puce"}, "colour"),
                      ({"name": "n", "ean": "5949998498176", "sku": "s"}, "already")):
         try:
-            add_product(bad)
+            save_product(bad)
             raise AssertionError(f"accepted {bad}")
         except ValueError as e:
             assert why in str(e), f"{bad} -> {e}"

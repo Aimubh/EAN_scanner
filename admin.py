@@ -21,11 +21,12 @@ PORT = 8000
 writing = threading.Lock()  # one browser on localhost, but a half-written sheet would lose 217 products
 
 
-def add_product(form):
-    """Append the row to products.xlsx, rebuild products.js, return (ean, the product as the page shows it)."""
+def save_product(form):
+    """Write the row into products.xlsx, rebuild products.js, return (ean, the product as the page shows it).
+    form['replacing'] is the EAN of the product being edited; without it this is a new product."""
     with writing:
         wb = load_workbook(XLSX)
-        ean = build.add_row(wb.active, form)  # raises ValueError before anything is written
+        ean = build.save_row(wb.active, form, form.get("replacing") or None)  # raises before anything is written
         wb.save(XLSX)
         products = build.build(XLSX)
     return ean, products[ean]
@@ -42,9 +43,9 @@ class Admin(SimpleHTTPRequestHandler):
         if self.path.split("?")[0] != "/api/admin":
             return self.send_error(404)
         try:
-            body = self.rfile.read(int(self.headers.get("Content-Length") or 0))
-            ean, product = add_product(json.loads(body))
-            self.reply(200, {"ean": ean, "product": product,
+            form = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+            ean, product = save_product(form)
+            self.reply(200, {"ean": ean, "product": product, "replaced": form.get("replacing") or "",
                              "note": "Saved to products.xlsx. Run git push to reach the phones."})
         except ValueError as e:
             self.reply(400, {"error": str(e)})
@@ -71,7 +72,7 @@ def self_check():
         with tempfile.TemporaryDirectory() as tmp:
             XLSX, build.HERE = Path(tmp) / "products.xlsx", Path(tmp)
             shutil.copy(HERE / "products.xlsx", XLSX)
-            ean, product = add_product({"name": "Test Bag (Rose Red)", "ean": "0 999 000 111 222", "sku": "zztest"})
+            ean, product = save_product({"name": "Test Bag (Rose Red)", "ean": "0 999 000 111 222", "sku": "zztest"})
             assert ean == "999000111222", ean
             assert product == {"name": "Test Bag (Rose Red)", "sku": "zztest", "colour": "rose red",
                                "hex": "#c21e56", "image": ""}, product
@@ -79,13 +80,31 @@ def self_check():
             made = json.loads((Path(tmp) / "products.js").read_text(encoding="utf-8").split("=", 1)[1].rstrip().rstrip(";"))
             assert made[ean] == product, made[ean]
             # the override beats the guess, on a name with no colour in it
-            assert add_product({"name": "Plain Box", "ean": "999000111333", "sku": "zzbox", "colour": "teal"})[1]["hex"] == "#1f8a8a"
+            assert save_product({"name": "Plain Box", "ean": "999000111333", "sku": "zzbox", "colour": "teal"})[1]["hex"] == "#1f8a8a"
+
+            # editing: same row rewritten, not a second one, and a cleared field really clears
+            total = len(build.catalogue(XLSX))
+            ean, product = save_product({"name": "Renamed Bag", "ean": "999000111222", "sku": "zzrenamed",
+                                         "colour": "black", "image": "", "replacing": "999000111222"})
+            assert ean == "999000111222", ean
+            assert product == {"name": "Renamed Bag", "sku": "zzrenamed", "colour": "black",
+                               "hex": "#1b1c1f", "image": ""}, product
+            assert len(build.catalogue(XLSX)) == total, "an edit must not add a row"
+            # an edit may move the product to a new EAN, and the old key goes away
+            moved = save_product({"name": "Renamed Bag", "ean": "999000111999", "sku": "zzrenamed",
+                                  "replacing": "999000111222"})[0]
+            after = build.catalogue(XLSX)
+            assert moved == "999000111999" and "999000111222" not in after and len(after) == total
+
             for bad, why in (({"name": "", "ean": "1", "sku": "s"}, "name"), ({"name": "n", "ean": "1", "sku": ""}, "SKU"),
                              ({"name": "n", "ean": "", "sku": "s"}, "EAN"), ({"name": "n", "ean": "abc", "sku": "s"}, "digit"),
                              ({"name": "n", "ean": "1", "sku": "s", "colour": "puce"}, "colour"),
-                             ({"name": "n", "ean": "5949998498176", "sku": "s"}, "already")):
+                             ({"name": "n", "ean": "5949998498176", "sku": "s"}, "already"),
+                             # editing a product that is not there, and moving one onto a taken EAN
+                             ({"name": "n", "ean": "1", "sku": "s", "replacing": "404404404"}, "nothing to update"),
+                             ({"name": "n", "ean": "5949998498176", "sku": "s", "replacing": "999000111333"}, "another product")):
                 try:
-                    add_product(bad)
+                    save_product(bad)
                     raise AssertionError(f"accepted {bad}")
                 except ValueError as e:
                     assert why in str(e), f"{bad} -> {e}"
