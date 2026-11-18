@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogue admin</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* same tokens as index.html, so the two pages read as one tool */
+  :root {
+    --bench: #eef1f5; --card: #fff; --ink: #14171f; --steel: #5f6b7e; --line: #d5dbe5; --laser: #e4002b;
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bench); color: var(--ink); font: 400 1rem/1.5 Barlow, system-ui, sans-serif; }
+  :focus-visible { outline: 2px solid var(--laser); outline-offset: 2px; }
+  .bench { max-width: 70rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  h1 { margin: 0; font: 700 2.5rem/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+  header p { margin: .25rem 0 0; color: var(--steel); }
+  header a { color: var(--ink); }
+  h2 { margin: 0 0 1rem; font: 700 1.5rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+  .card { padding: 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+
+  /* form */
+  .fields { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 46rem) { .fields { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+  label { display: block; margin-bottom: .35rem; font-weight: 500; font-size: .875rem; color: var(--steel); }
+  .hint { font-weight: 400; }
+  input, select { width: 100%; font: 400 1rem/1.2 Barlow, system-ui, sans-serif; padding: .7rem; color: var(--ink);
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 8px; }
+  #ean, #sku { font-family: var(--mono); }
+  button { font: 500 1rem/1 Barlow, system-ui, sans-serif; border: 0; border-radius: 8px; padding: .85rem 1.1rem;
+    color: #fff; background: var(--ink); cursor: pointer; }
+  button:disabled { opacity: .6; cursor: default; }
+  .actions { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+  .note { margin: 0; color: var(--steel); }
+  .note.error { color: var(--laser); font-weight: 500; }
+  .note:empty { display: none; }
+
+  /* catalogue */
+  .toolbar { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
+  .toolbar div { flex: 1; min-width: 12rem; }
+  #count { color: var(--steel); font: 400 .875rem/1 var(--mono); padding-bottom: .85rem; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: .5rem; border-bottom: 1.5px solid var(--line); white-space: nowrap;
+    font: 400 .75rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--steel); }
+  td { padding: .5rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  td.code { font: 400 .9375rem/1 var(--mono); white-space: nowrap; }
+  td.name { min-width: 18rem; font-size: .9375rem; }
+  tr.new td { background: #fff6f7; box-shadow: inset 3px 0 var(--laser); }
+  .thumb { display: block; width: 3rem; height: 3rem; object-fit: contain; border-radius: 6px; background: var(--bench); }
+  .swatch { display: inline-block; width: .85rem; height: .85rem; margin-right: .4rem; vertical-align: -1px;
+    border: 1px solid var(--line); border-radius: 3px;
+    background: repeating-linear-gradient(45deg, var(--line) 0 4px, transparent 4px 8px); }
+  .colour { white-space: nowrap; font-size: .9375rem; }
+  .colour.none { color: var(--steel); }
+</style>
+</head>
+<body>
+<main class="bench">
+  <header>
+    <h1>Catalogue admin</h1>
+    <p>Adds the row to <code>products.xlsx</code> and rebuilds <code>products.js</code> on this PC.
+       The staff phones only see it after <code>git push</code>. &nbsp;<a href="/">Scanner &rarr;</a></p>
+  </header>
+
+  <section class="card" aria-labelledby="add-title">
+    <h2 id="add-title">Add a product</h2>
+    <form id="add" autocomplete="off">
+      <div class="fields">
+        <div>
+          <label for="name">Product name</label>
+          <input id="name" name="name" required placeholder="Lazer Makeup Travel Pouch &hellip; - Black">
+        </div>
+        <div>
+          <label for="ean">EAN</label>
+          <input id="ean" name="ean" required inputmode="numeric" placeholder="8906209350897">
+        </div>
+        <div>
+          <label for="sku">SKU</label>
+          <input id="sku" name="sku" required placeholder="wbblack">
+        </div>
+        <div>
+          <label for="colour">Colour <span class="hint">&mdash; blank guesses it from the name</span></label>
+          <select id="colour" name="colour"><option value="">Guess from the name</option></select>
+        </div>
+        <div>
+          <label for="image">Image <span class="hint">&mdash; paste the Google Drive share link</span></label>
+          <input id="image" name="image" type="url" placeholder="https://drive.google.com/file/d/&hellip;/view?usp=sharing">
+        </div>
+      </div>
+      <div class="actions">
+        <button id="save">Add product</button>
+        <p id="said" class="note" role="status"></p>
+      </div>
+    </form>
+  </section>
+
+  <section class="card" aria-labelledby="list-title">
+    <h2 id="list-title">Catalogue</h2>
+    <div class="toolbar">
+      <div>
+        <label for="q">Search name, SKU or EAN</label>
+        <input id="q" type="search" placeholder="washbag">
+      </div>
+      <p id="count"></p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th></th><th>Product name</th><th>EAN</th><th>SKU</th><th>Colour</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+  const $ = id => document.getElementById(id);
+  // products.js is a JS assignment, so read it as text rather than <script src>: a fetch can be repeated after an add
+  const parse = text => JSON.parse(text.slice(text.indexOf('=') + 1).trim().replace(/;$/, ''));
+  const escape = text => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let PRODUCTS = {}, fresh = '';
+
+  const say = (text, error = false) => {
+    $('said').textContent = text;
+    $('said').classList.toggle('error', error);
+  };
+
+  function render() {
+    const q = $('q').value.trim().toLowerCase();
+    const hits = Object.entries(PRODUCTS)
+      .filter(([ean, p]) => !q || `${ean} ${p.sku} ${p.name}`.toLowerCase().includes(q))
+      .sort(([, a], [, b]) => a.sku.localeCompare(b.sku));
+    $('count').textContent = q ? `${hits.length} of ${Object.keys(PRODUCTS).length}` : `${hits.length} products`;
+    $('rows').replaceChildren(...hits.map(([ean, p]) => {
+      const tr = document.createElement('tr');
+      if (ean === fresh) tr.className = 'new';
+      // the sheet's links are sz=w1000 full-size; 217 of those would be pointless at 3rem
+      const thumb = p.image
+        ? `<img class="thumb" loading="lazy" src="${escape(p.image.replace('sz=w1000', 'sz=w120'))}" alt="" referrerpolicy="no-referrer">`
+        : '';
+      tr.innerHTML = `<td>${thumb}</td><td class="name">${escape(p.name)}</td><td class="code">${ean}</td>`
+        + `<td class="code">${escape(p.sku)}</td>`
+        + `<td class="colour${p.colour ? '' : ' none'}"><span class="swatch" style="background:${escape(p.hex)}"></span>`
+        + `${p.colour || 'not listed'}</td>`;
+      return tr;
+    }));
+  }
+
+  async function load() {
+    PRODUCTS = parse(await (await fetch('products.js', { cache: 'no-store' })).text());
+    render();
+  }
+
+  $('q').oninput = render;
+
+  $('add').onsubmit = async e => {
+    e.preventDefault();
+    $('save').disabled = true;
+    say('Saving…');
+    try {
+      const body = Object.fromEntries(new FormData($('add')));
+      const reply = await fetch('/add', { method: 'POST', body: JSON.stringify(body) });
+      const out = await reply.json();
+      if (!reply.ok) throw new Error(out.error);
+      fresh = out.ean;
+      $('add').reset();
+      $('q').value = '';
+      await load();
+      say(`Added ${out.ean}. On the phones after: git add -A && git commit && git push`);
+      $('rows').querySelector('tr.new')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    } catch (err) {
+      // a dead fetch means the page is open without admin.py behind it, which otherwise looks like a rejected row
+      say(err instanceof TypeError ? 'No answer from admin.py. Start it with: python admin.py' : err.message, true);
+    } finally {
+      $('save').disabled = false;
+    }
+  };
+
+  (async () => {
+    const colours = await (await fetch('/colours')).json().catch(() => []);
+    $('colour').append(...colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
+    await load();
+  })();
+</script>
+</body>
+</html>

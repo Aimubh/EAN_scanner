@@ -44,7 +44,8 @@ def norm(sku):
 
 def sheet_skus(xlsx):
     found = set()
-    for ws in load_workbook(xlsx, read_only=True, data_only=True).worksheets:
+    wb = load_workbook(xlsx, read_only=True, data_only=True)  # read_only holds the file open until closed
+    for ws in wb.worksheets:
         col = None
         for row in ws.iter_rows(values_only=True):
             cells = [str(c or "").strip().lower() for c in row]
@@ -52,6 +53,7 @@ def sheet_skus(xlsx):
                 found.add(cells[col])
             elif col is None and "sku" in cells:
                 col = cells.index("sku")
+    wb.close()
     return found
 
 

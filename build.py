@@ -40,7 +40,8 @@ def image_url(link):
 
 
 def build(xlsx):
-    rows = load_workbook(xlsx, read_only=True).active.iter_rows(values_only=True)
+    wb = load_workbook(xlsx, read_only=True)  # read_only holds the file open: close it, or the next save is blocked on Windows
+    rows = wb.active.iter_rows(values_only=True)
     col = {str(h).strip().lower(): i for i, h in enumerate(next(rows)) if h}
     products = {}
     for row in rows:
@@ -55,6 +56,7 @@ def build(xlsx):
             "name": get("product name"), "sku": get("sku"), "colour": colour,
             "hex": COLOURS.get(colour, ""), "image": image_url(get("images") or get("image link") or get("image")),
         }
+    wb.close()
     out = HERE / "products.js"
     out.write_text("const PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n", encoding="utf-8")
     print(f"{len(products)} products -> {out.name}")
