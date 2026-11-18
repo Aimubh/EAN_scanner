@@ -66,11 +66,11 @@
 <main class="bench">
   <header>
     <h1>Catalogue admin</h1>
-    <p>Adds the row to <code>products.xlsx</code> and rebuilds <code>products.js</code> on this PC.
-       The staff phones only see it after <code>git push</code>. &nbsp;<a href="/">Scanner &rarr;</a></p>
+    <p><span id="intro">Adds the row to <code>products.xlsx</code> and rebuilds <code>products.js</code> on this PC.
+       The staff phones only see it after <code>git push</code>.</span> &nbsp;<a href="/">Scanner &rarr;</a></p>
   </header>
 
-  <section class="card" aria-labelledby="add-title">
+  <section class="card" id="add-card" aria-labelledby="add-title" hidden>
     <h2 id="add-title">Add a product</h2>
     <form id="add" autocomplete="off">
       <div class="fields">
@@ -183,9 +183,17 @@
     }
   };
 
+  // The add form needs admin.py behind the page to write the sheet. The deployed copy has no such server
+  // and no writable disk, so it starts hidden and only appears once /colours answers: read-only when live.
   (async () => {
-    const colours = await (await fetch('/colours')).json().catch(() => []);
-    $('colour').append(...colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
+    const reply = await fetch('/colours').catch(() => null);
+    const colours = reply?.ok ? await reply.json().catch(() => []) : [];
+    if (colours.length) {
+      $('colour').append(...colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
+      $('add-card').hidden = false;
+    } else {
+      $('intro').textContent = 'Read-only. To add a product, run admin.py on the PC that holds products.xlsx.';
+    }
     await load();
   })();
 </script>
