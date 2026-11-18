@@ -125,6 +125,8 @@
   // products.js is a JS assignment, so read it as text rather than <script src>: a fetch can be repeated after an add
   const parse = text => JSON.parse(text.slice(text.indexOf('=') + 1).trim().replace(/;$/, ''));
   const escape = text => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // the key rides in the fragment, which browsers never send to the server or put in a Referer header
+  const KEY = new URLSearchParams(location.hash.slice(1)).get('key') ?? '';
   let PRODUCTS = {}, fresh = '';
 
   const say = (text, error = false) => {
@@ -165,34 +167,44 @@
     $('save').disabled = true;
     say('Saving…');
     try {
-      const body = Object.fromEntries(new FormData($('add')));
-      const reply = await fetch('/add', { method: 'POST', body: JSON.stringify(body) });
+      const reply = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'X-Admin-Key': KEY },
+        body: JSON.stringify(Object.fromEntries(new FormData($('add')))),
+      });
       const out = await reply.json();
       if (!reply.ok) throw new Error(out.error);
       fresh = out.ean;
       $('add').reset();
       $('q').value = '';
       await load();
-      say(`Added ${out.ean}. On the phones after: git add -A && git commit && git push`);
+      // live, the commit redeploys over the next minute, so products.js has not caught up: show it anyway
+      if (out.product && !PRODUCTS[out.ean]) { PRODUCTS[out.ean] = out.product; render(); }
+      say(`Added ${out.ean}. ${out.note ?? ''}`);
       $('rows').querySelector('tr.new')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } catch (err) {
-      // a dead fetch means the page is open without admin.py behind it, which otherwise looks like a rejected row
-      say(err instanceof TypeError ? 'No answer from admin.py. Start it with: python admin.py' : err.message, true);
+      // a dead fetch means nothing is answering /api/admin, which otherwise looks like a rejected row
+      say(err instanceof TypeError ? 'No answer from /api/admin. Locally, start it with: python admin.py' : err.message, true);
     } finally {
       $('save').disabled = false;
     }
   };
 
-  // The add form needs admin.py behind the page to write the sheet. The deployed copy has no such server
-  // and no writable disk, so it starts hidden and only appears once /colours answers: read-only when live.
+  // /api/admin is answered by admin.py on this PC and by api/admin.py on Vercel, so there is one code
+  // path. The form appears only when that endpoint says it can write: always locally, and on the live
+  // page only when the link carries the key. Without it the page is the read-only catalogue.
   (async () => {
-    const reply = await fetch('/colours').catch(() => null);
-    const colours = reply?.ok ? await reply.json().catch(() => []) : [];
-    if (colours.length) {
-      $('colour').append(...colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
+    const reply = await fetch('/api/admin', { headers: { 'X-Admin-Key': KEY } }).catch(() => null);
+    const api = reply?.ok ? await reply.json().catch(() => null) : null;
+    if (api?.write) {
+      $('colour').append(...api.colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
       $('add-card').hidden = false;
+      $('intro').textContent = api.where === 'this PC'
+        ? 'Adds the row to products.xlsx on this PC. The staff phones see it after a git push.'
+        : 'Adds the row straight to the repo. On the staff phones about a minute later.';
     } else {
-      $('intro').textContent = 'Read-only. To add a product, run admin.py on the PC that holds products.xlsx.';
+      $('intro').textContent = api?.why
+        || 'Read-only. To add products, open this page with the key on the end of the link, or run admin.py on the PC that holds products.xlsx.';
     }
     await load();
   })();
