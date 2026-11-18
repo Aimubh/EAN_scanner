@@ -39,7 +39,44 @@ def image_url(link):
     return f"https://drive.google.com/thumbnail?id={drive[1]}&sz=w1000" if drive else (link or "")
 
 
-def build(xlsx):
+IMAGE_HEADERS = ("images", "image link", "image")  # whichever one the sheet uses
+
+
+def add_row(ws, form):
+    """Validate the form and append it to the open worksheet, returning the EAN as this module keys it.
+    Raises ValueError on anything the sheet should not take. Shared by admin.py and api/admin.py, so a
+    product added on this PC and one added from the live page go in under exactly the same rules."""
+    get = lambda f: str(form.get(f) or "").strip()
+    name, sku, image, colour = get("name"), get("sku"), get("image"), get("colour").lower()
+    ean = ean_key(get("ean"))
+    for field, value in (("name", name), ("SKU", sku), ("EAN", get("ean"))):
+        if not value:
+            raise ValueError(f"{field} cannot be empty")
+    if not ean:
+        raise ValueError("the EAN needs at least one digit")
+    if colour and colour not in COLOURS:
+        raise ValueError(f"unknown colour {colour!r}")
+    col = {str(c.value).strip().lower(): c.column for c in ws[1] if c.value}
+    for required in ("product name", "ean", "sku"):
+        if required not in col:
+            raise ValueError(f"the sheet has no {required!r} column")
+    taken = {ean_key(c.value) for c in ws[ws.cell(1, col["ean"]).column_letter][1:] if c.value}
+    if ean in taken:
+        raise ValueError(f"EAN {ean} is already in the catalogue")
+    row = ws.max_row + 1
+    if colour and "colour" not in col:  # this module reads a Colour column when there is one, so make it on first use
+        col["colour"] = ws.max_column + 1
+        ws.cell(1, col["colour"], "Colour")
+    cells = {"product name": name, "ean": int(ean), "sku": sku, "colour": colour,
+             next((h for h in IMAGE_HEADERS if h in col), "images"): image}
+    for header, value in cells.items():
+        if header in col and value != "":
+            ws.cell(row, col[header], value)
+    return ean
+
+
+def catalogue(xlsx):
+    """{ean: product} from the sheet. xlsx is a path, or a file-like object when it came over the wire."""
     wb = load_workbook(xlsx, read_only=True)  # read_only holds the file open: close it, or the next save is blocked on Windows
     rows = wb.active.iter_rows(values_only=True)
     col = {str(h).strip().lower(): i for i, h in enumerate(next(rows)) if h}
@@ -57,9 +94,20 @@ def build(xlsx):
             "hex": COLOURS.get(colour, ""), "image": image_url(get("images") or get("image link") or get("image")),
         }
     wb.close()
+    return products
+
+
+def render(products):
+    """products.js, exactly as the browser expects to find it."""
+    return "const PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n"
+
+
+def build(xlsx):
+    products = catalogue(xlsx)
     out = HERE / "products.js"
-    out.write_text("const PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n", encoding="utf-8")
+    out.write_text(render(products), encoding="utf-8")
     print(f"{len(products)} products -> {out.name}")
+    return products
 
 
 if __name__ == "__main__":
