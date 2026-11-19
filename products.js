@@ -1517,5 +1517,12 @@ const PRODUCTS = {
   "colour": "",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1niUuU7SKS9DT0FUYrQZ0yr4SUSPc-ERb&sz=w1000"
+ },
+ "999000888777": {
+  "name": "ZZ Live Pipeline Test Pouch (Pista Green)",
+  "sku": "zzlivetest",
+  "colour": "pista green",
+  "hex": "#93c572",
+  "image": ""
  }
 };
