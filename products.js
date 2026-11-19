@@ -1,4 +1,4 @@
-const PRODUCTS = {
+var PRODUCTS = {
  "5949998498176": {
   "name": "Lazer Pack of 3 Refillable Travel Bottles for Toiletries Silicone Container for Cream, Shampoo Hand Wash, Lotion Storage Bottle Travel Accessories Leak Proof (60 ML)",
   "sku": "tsbottle",
