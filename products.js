@@ -452,7 +452,7 @@ var PRODUCTS = {
   "sku": "scbag",
   "colour": "pink",
   "hex": "#e8a0bf",
-  "image": "https://drive.google.com/thumbnail?id=1UqFZfyJdpwq8BjGeNOTjRRXelBuWBsoH&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=1pMPwGn7a-pS6oeVmlo3OGDG48ArofYZg&sz=w1000"
  },
  "5949999278289": {
   "name": "Lazer Travel Cosmetic Makeup Pouches for Women Travel Organizer Bag Portable Pouch Open Flat Toiletry Bag Make Up Organizer with Divider and Handle (Black)",
@@ -1075,7 +1075,7 @@ var PRODUCTS = {
   "sku": "2layercosholder",
   "colour": "grey",
   "hex": "#8a8d91",
-  "image": "https://drive.google.com/thumbnail?id=19gz2VAD5N3szxDpi1FWotxwbDUL7JyZb&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=10nTM_hpLJ1-bHxHQdb6Ofac5oMqGskPa&sz=w1000"
  },
  "8906209350927": {
   "name": "Lazer Silicone Collapsible Face Bowl with Ice Tray, BPA-Free Round Face Bath Bowl for Skincare, Soaking & Washing, Dishwasher Safe (Black, Pack of 1)",
@@ -1369,7 +1369,7 @@ var PRODUCTS = {
   "sku": "socksorganizer",
   "colour": "blue",
   "hex": "#2f5fa8",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1unMO9CuGQ5dmc3vkMsDOZjGIqWMpWr9j&sz=w1000"
  },
  "8906209351702": {
   "name": "Lazer Magic Eraser Cleaning Sponge, Pack of 5, 11 × 7 × 2 cm | Multi-Purpose Melamine Foam for Walls, Kitchens, Bathrooms, Shoes, Tiles, Appliances & Household Surfaces",
