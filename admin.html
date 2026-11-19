@@ -37,10 +37,13 @@
   button { font: 500 1rem/1 Barlow, system-ui, sans-serif; border: 0; border-radius: 8px; padding: .85rem 1.1rem;
     color: #fff; background: var(--ink); cursor: pointer; }
   button:disabled { opacity: .6; cursor: default; }
-  .actions { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+  .actions { display: flex; align-items: center; gap: .75rem; margin-top: 1rem; flex-wrap: wrap; }
   .note { margin: 0; color: var(--steel); }
   .note.error { color: var(--laser); font-weight: 500; }
   .note:empty { display: none; }
+  #cancel { color: var(--ink); background: var(--bench); border: 1.5px solid var(--line); }
+  #remove { margin-left: auto; background: var(--bench); color: var(--laser); border: 1.5px solid var(--laser); }
+  #remove.armed { background: var(--laser); color: #fff; }
 
   /* catalogue */
   .toolbar { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -62,7 +65,6 @@
   .colour.none { color: var(--steel); }
   .edit { padding: .4rem .7rem; font-size: .875rem; color: var(--ink); background: var(--bench); border: 1.5px solid var(--line); }
   .edit:hover { border-color: var(--ink); }
-  #cancel { color: var(--ink); background: var(--bench); border: 1.5px solid var(--line); }
   #add-card.editing { border-color: var(--laser); box-shadow: inset 3px 0 var(--laser); }
 </style>
 </head>
@@ -70,8 +72,7 @@
 <main class="bench">
   <header>
     <h1>Catalogue admin</h1>
-    <p><span id="intro">Adds the row to <code>products.xlsx</code> and rebuilds <code>products.js</code> on this PC.
-       The staff phones only see it after <code>git push</code>.</span> &nbsp;<a href="/">Scanner &rarr;</a></p>
+    <p><span id="intro">Loading&hellip;</span> &nbsp;<a href="/">Scanner &rarr;</a></p>
   </header>
 
   <section class="card" id="add-card" aria-labelledby="add-title" hidden>
@@ -102,6 +103,7 @@
       <div class="actions">
         <button id="save">Add product</button>
         <button type="button" id="cancel" hidden>Cancel</button>
+        <button type="button" id="remove" hidden>Delete</button>
         <p id="said" class="note" role="status"></p>
       </div>
     </form>
@@ -127,9 +129,9 @@
 
 <script>
   const $ = id => document.getElementById(id);
-  // products.js is a JS assignment, so read it as text rather than <script src>: a fetch can be repeated after an add
+  // products.js is a JS assignment, so read it as text rather than <script src>: a fetch can be repeated
   const parse = text => JSON.parse(text.slice(text.indexOf('=') + 1).trim().replace(/;$/, ''));
-  const escape = text => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const escape = text => String(text).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // the key rides in the fragment, which browsers never send to the server or put in a Referer header
   const KEY = new URLSearchParams(location.hash.slice(1)).get('key') ?? '';
   let PRODUCTS = {}, fresh = '', canWrite = false, editing = '';
@@ -152,18 +154,25 @@
       const thumb = p.image
         ? `<img class="thumb" loading="lazy" src="${escape(p.image.replace('sz=w1000', 'sz=w120'))}" alt="" referrerpolicy="no-referrer">`
         : '';
-      tr.innerHTML = `<td>${thumb}</td><td class="name">${escape(p.name)}</td><td class="code">${ean}</td>`
+      tr.innerHTML = `<td>${thumb}</td><td class="name">${escape(p.name)}</td><td class="code">${escape(ean)}</td>`
         + `<td class="code">${escape(p.sku)}</td>`
         + `<td class="colour${p.colour ? '' : ' none'}"><span class="swatch" style="background:${escape(p.hex)}"></span>`
-        + `${p.colour || 'not listed'}</td>`
-        + `<td>${canWrite ? `<button type="button" class="edit" data-ean="${ean}">Edit</button>` : ''}</td>`;
+        + `${escape(p.colour || 'not listed')}</td>`
+        + `<td>${canWrite ? `<button type="button" class="edit" data-ean="${escape(ean)}">Edit</button>` : ''}</td>`;
       return tr;
     }));
   }
 
+  const show = products => { PRODUCTS = products; render(); };
+
+  // the baked copy first, so the table is there at once and still works with no signal, then the
+  // sheet's own answer swapped in when it arrives
   async function load() {
-    PRODUCTS = parse(await (await fetch('products.js', { cache: 'no-store' })).text());
-    render();
+    try { show(parse(await (await fetch('products.js', { cache: 'no-store' })).text())); } catch (e) { /* live may still save us */ }
+    try {
+      const live = await (await fetch('/api/products', { cache: 'no-store' })).json();
+      if (live.products) show(live.products);
+    } catch (e) { /* offline, or not configured: the baked copy stands */ }
   }
 
   $('q').oninput = render;
@@ -185,7 +194,8 @@
     $('image').value = p.image;
     $('add-title').textContent = `Edit ${p.sku}`;
     $('save').textContent = 'Save changes';
-    $('cancel').hidden = false;
+    $('cancel').hidden = $('remove').hidden = false;
+    disarm();
     $('add-card').classList.add('editing');
     say('');
     $('add-card').scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -197,48 +207,58 @@
     $('add').reset();
     $('add-title').textContent = 'Add a product';
     $('save').textContent = 'Add product';
-    $('cancel').hidden = true;
+    $('cancel').hidden = $('remove').hidden = true;
+    disarm();
     $('add-card').classList.remove('editing');
   }
 
+  // delete asks twice, on the button itself: a modal would block, and one stray click should not
+  // be able to drop a product
+  const disarm = () => { $('remove').classList.remove('armed'); $('remove').textContent = 'Delete'; };
+
   $('cancel').onclick = () => { stopEdit(); say(''); };
 
-  $('add').onsubmit = async e => {
+  $('remove').onclick = () => {
+    if (!$('remove').classList.contains('armed')) {
+      $('remove').classList.add('armed');
+      $('remove').textContent = 'Click again to delete';
+      say(`This removes ${editing} from the sheet.`);
+      return;
+    }
+    send({ delete: editing }, 'Deleted');
+  };
+
+  $('add').onsubmit = e => {
     e.preventDefault();
-    $('save').disabled = true;
-    say('Saving…');
+    send({ ...Object.fromEntries(new FormData($('add'))), replacing: editing }, editing ? 'Updated' : 'Added');
+  };
+
+  async function send(body, verb) {
+    $('save').disabled = $('remove').disabled = true;
+    say(verb === 'Deleted' ? 'Deleting…' : 'Saving…');
     try {
       const reply = await fetch('/api/admin', {
-        method: 'POST',
-        headers: { 'X-Admin-Key': KEY },
-        body: JSON.stringify({ ...Object.fromEntries(new FormData($('add'))), replacing: editing }),
+        method: 'POST', headers: { 'X-Admin-Key': KEY }, body: JSON.stringify(body),
       });
       const out = await reply.json();
       if (!reply.ok) throw new Error(out.error);
-      const edited = !!editing;
-      fresh = out.ean;
+      fresh = out.deleted ? '' : out.ean;
       stopEdit();
       $('q').value = '';
-      await load();
-      // live, the commit redeploys over the next minute, so products.js has not caught up: show it anyway
-      if (out.product && !(out.ean in PRODUCTS && PRODUCTS[out.ean].name === out.product.name)) {
-        if (out.replaced && out.replaced !== out.ean) delete PRODUCTS[out.replaced];
-        PRODUCTS[out.ean] = out.product;
-        render();
-      }
-      say(`${edited ? 'Updated' : 'Added'} ${out.ean}. ${out.note ?? ''}`);
+      show(out.products);  // the server hands back the whole sheet, so the table cannot drift from it
+      say(`${verb} ${out.ean}. ${out.note ?? ''}`);
       $('rows').querySelector('tr.new')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } catch (err) {
       // a dead fetch means nothing is answering /api/admin, which otherwise looks like a rejected row
       say(err instanceof TypeError ? 'No answer from /api/admin. Locally, start it with: python admin.py' : err.message, true);
     } finally {
-      $('save').disabled = false;
+      $('save').disabled = $('remove').disabled = false;
     }
-  };
+  }
 
   // /api/admin is answered by admin.py on this PC and by api/admin.py on Vercel, so there is one code
-  // path. The form appears only when that endpoint says it can write: always locally, and on the live
-  // page only when the link carries the key. Without it the page is the read-only catalogue.
+  // path. The form appears only when that endpoint says it can write: on the live page that needs the
+  // key in the link, and the sheet reachable. Without it this is the read-only catalogue.
   (async () => {
     const reply = await fetch('/api/admin', { headers: { 'X-Admin-Key': KEY } }).catch(() => null);
     const api = reply?.ok ? await reply.json().catch(() => null) : null;
@@ -246,12 +266,10 @@
     if (canWrite) {
       $('colour').append(...api.colours.map(c => Object.assign(document.createElement('option'), { value: c, textContent: c })));
       $('add-card').hidden = false;
-      $('intro').textContent = api.where === 'this PC'
-        ? 'Adds the row to products.xlsx on this PC. The staff phones see it after a git push.'
-        : 'Adds the row straight to the repo. On the staff phones about a minute later.';
+      $('intro').textContent = `Adds, changes and removes products in ${api.where}. The staff phones see it on their next page load.`;
     } else {
       $('intro').textContent = api?.why
-        || 'Read-only. To add products, open this page with the key on the end of the link, or run admin.py on the PC that holds products.xlsx.';
+        || 'Read-only. To change products, open this page with the key on the end of the link.';
     }
     await load();
   })();

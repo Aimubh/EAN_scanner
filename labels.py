@@ -87,7 +87,7 @@ def main(root):
             labels[src] = {"code": codes[0], "sku": product_sku.get(norm(sku), sku), "set": group, "src": src}
     for label in labels.values():
         if norm(label["sku"]) not in product_sku:
-            print(f"no product for SKU {label['sku']} ({label['set']} label {label['code']}): add it to products.xlsx")
+            print(f"no product for SKU {label['sku']} ({label['set']} label {label['code']}): add it to the Google Sheet")
     (HERE / "labels.js").write_text("const LABELS = " + json.dumps(list(labels.values()), indent=1) + ";\n", encoding="utf-8")
     print(f"{len(labels)} labels -> labels/, labels.js")
 

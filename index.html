@@ -154,8 +154,17 @@
   const key = code => code.replace(/\D/g, '').replace(/^0+/, ''); // same normalisation as build.py
   // Many labels carry an Amazon ASIN, not the EAN; labels.js (from labels.py) ties each label's code to its SKU.
   const LABEL_SKU = Object.fromEntries(LABELS.map(l => [l.code, l.sku]));
-  const EAN_OF_SKU = Object.fromEntries(Object.entries(PRODUCTS).map(([ean, p]) => [p.sku.toLowerCase(), ean]));
+  let EAN_OF_SKU = {};
+  const indexSkus = () => { EAN_OF_SKU = Object.fromEntries(Object.entries(PRODUCTS).map(([ean, p]) => [p.sku.toLowerCase(), ean])); };
+  indexSkus();
   const eanOf = code => EAN_OF_SKU[LABEL_SKU[code.trim().toUpperCase()]] ?? key(code);
+
+  // The Google Sheet is the catalogue. This page ships a copy of it so scanning works instantly and
+  // with no signal; if the network is there, the sheet's own answer replaces it a moment later.
+  fetch('/api/products', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(live => { if (live.products && Object.keys(live.products).length) { PRODUCTS = live.products; indexSkus(); } })
+    .catch(() => {});
   let stream = null, last = '';
 
   function show(code) {

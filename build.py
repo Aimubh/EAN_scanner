@@ -1,14 +1,18 @@
-"""Excel -> products.js.  Run after editing the sheet:  python build.py [path.xlsx]
+"""The catalogue's rules, and Google Sheet -> products.js.  Refresh the offline copy:  python build.py
 Columns: Product Name | EAN | SKU | Images (or "Image Link") | Colour (optional, overrides the guess)
+
+Nothing here touches the network or the disk except build(); it is plain functions over the sheet's
+rows, so the local panel (admin.py), the live one (api/admin.py) and this CLI all apply identical
+rules. The sheet is the database - see sheet.py - and products.js is the copy baked into the deploy
+so the scanner still works on a phone with no signal.
 """
 import json, re, sys
 from pathlib import Path
-from openpyxl import load_workbook
 
 HERE = Path(__file__).parent
 
 # name -> swatch hex. Multi-word names first so "dark blue" wins over "blue".
-# ponytail: colour is guessed from the name/SKU text; add a "Colour" column when the guess falls short.
+# ponytail: colour is guessed from the name/SKU text; fill the Colour column when the guess falls short.
 COLOURS = {
     "dark blue": "#1f2f5c", "light blue": "#9cc4e4", "baby pink": "#f4c2d0", "pista green": "#93c572",
     "dark green": "#1f5e3a", "rose red": "#c21e56", "multi color": "", "multi-color": "", "multicolor": "",
@@ -18,6 +22,7 @@ COLOURS = {
     "gold": "#d4af37", "golden": "#d4af37",  # not "transparent"/"clear": they describe windows and displays, not the item
 }
 IN_NAME = re.compile(r"\b(" + "|".join(COLOURS) + r")\b", re.I)
+IMAGE_HEADERS = ("images", "image link", "image")  # whichever one the sheet uses
 
 
 def colour_of(name, sku):
@@ -28,7 +33,8 @@ def colour_of(name, sku):
 
 
 def ean_key(ean):
-    # Excel stores EANs as numbers, which drops leading zeros - so drop them everywhere.
+    # Sheets hands back display text, but a pasted EAN may carry spaces or leading zeros. Drop both,
+    # everywhere, so the same product is the same key however it was typed.
     if isinstance(ean, float):
         ean = int(ean)
     return re.sub(r"\D", "", str(ean)).lstrip("0")
@@ -39,23 +45,50 @@ def image_url(link):
     return f"https://drive.google.com/thumbnail?id={drive[1]}&sz=w1000" if drive else (link or "")
 
 
-IMAGE_HEADERS = ("images", "image link", "image")  # whichever one the sheet uses
+def columns(rows):
+    """{header, lowercased: its column index} from the sheet's first row."""
+    return {str(h).strip().lower(): i for i, h in enumerate(rows[0]) if str(h).strip()}
 
 
-def find_row(ws, ean_column, ean):
-    """The row holding this EAN, or None. Compared through ean_key, so the sheet's numeric cells and
-    a typed-in '0 8906 2093 5089 7' land on the same product."""
-    for cell in ws[ws.cell(1, ean_column).column_letter][1:]:
-        if cell.value and ean_key(cell.value) == ean:
-            return cell.row
+def cell(row, col, header):
+    """One cell by header name, blank when the sheet is short or has no such column."""
+    at = col.get(header)
+    return str(row[at]).strip() if at is not None and at < len(row) else ""
+
+
+def catalogue(rows):
+    """{ean: product} from the sheet's rows, exactly as the browser will see them."""
+    col = columns(rows)
+    products = {}
+    for row in rows[1:]:
+        key = ean_key(cell(row, col, "ean"))
+        if not key:
+            continue
+        if key in products:
+            print(f"warning: duplicate EAN {key}, keeping the last row")
+        name, sku = cell(row, col, "product name"), cell(row, col, "sku")
+        colour = (cell(row, col, "colour") or cell(row, col, "color")).lower() or colour_of(name, sku)
+        image = next((cell(row, col, h) for h in IMAGE_HEADERS if cell(row, col, h)), "")
+        products[key] = {"name": name, "sku": sku, "colour": colour,
+                         "hex": COLOURS.get(colour, ""), "image": image_url(image)}
+    return products
+
+
+def index_of(rows, ean):
+    """The zero-based data row holding this EAN, or None."""
+    col = columns(rows)
+    for i, row in enumerate(rows[1:]):
+        if ean and ean_key(cell(row, col, "ean")) == ean:
+            return i
     return None
 
 
-def save_row(ws, form, replacing=None):
-    """Validate the form and write it to the sheet: a new row, or over the row holding `replacing`.
-    Returns the EAN as this module keys it, and raises ValueError on anything the sheet should not
-    take. Shared by admin.py and api/admin.py, so a product saved on this PC and one saved from the
-    live page go in under exactly the same rules."""
+def save(rows, form, replacing=None):
+    """Check the form against the sheet and work out the write: (index, values, ean).
+
+    index is the data row to overwrite, or None to append. Raises ValueError on anything the sheet
+    should not take, before any write is attempted.
+    """
     get = lambda f: str(form.get(f) or "").strip()
     name, sku, image, colour = get("name"), get("sku"), get("image"), get("colour").lower()
     ean = ean_key(get("ean"))
@@ -66,73 +99,106 @@ def save_row(ws, form, replacing=None):
         raise ValueError("the EAN needs at least one digit")
     if colour and colour not in COLOURS:
         raise ValueError(f"unknown colour {colour!r}")
-    col = {str(c.value).strip().lower(): c.column for c in ws[1] if c.value}
+    col = columns(rows)
     for required in ("product name", "ean", "sku"):
         if required not in col:
             raise ValueError(f"the sheet has no {required!r} column")
-    holder = find_row(ws, col["ean"], ean)
+    if colour and "colour" not in col:
+        raise ValueError("the sheet has no 'Colour' column, so a colour cannot be set")
+    holder = index_of(rows, ean)
     if replacing is None:
-        if holder:
+        if holder is not None:
             raise ValueError(f"EAN {ean} is already in the catalogue")
-        row = ws.max_row + 1
+        index = None
     else:
-        row = find_row(ws, col["ean"], ean_key(replacing))
-        if row is None:
+        index = index_of(rows, ean_key(replacing))
+        if index is None:
             raise ValueError(f"EAN {replacing} is not in the catalogue, so there is nothing to update")
-        if holder and holder != row:  # the EAN was edited onto one that another product already owns
+        if holder is not None and holder != index:  # the EAN was edited onto one another product owns
             raise ValueError(f"EAN {ean} already belongs to another product")
-    if colour and "colour" not in col:  # this module reads a Colour column when there is one, so make it on first use
-        col["colour"] = ws.max_column + 1
-        ws.cell(1, col["colour"], "Colour")
-    cells = {"product name": name, "ean": int(ean), "sku": sku, "colour": colour,
-             next((h for h in IMAGE_HEADERS if h in col), "images"): image}
-    for header, value in cells.items():
-        if header in col:  # written even when empty, so clearing a colour or an image on an edit sticks
-            # .value, not ws.cell(r, c, v): that form ignores a None and would leave the old text in place
-            ws.cell(row, col[header]).value = value if value != "" else None
-    return ean
+    values = [""] * len(rows[0])
+    for header, value in (("product name", name), ("ean", ean), ("sku", sku), ("colour", colour),
+                          (next((h for h in IMAGE_HEADERS if h in col), "images"), image)):
+        if header in col:  # written even when blank, so clearing a colour or an image on an edit sticks
+            values[col[header]] = value
+    return index, values, ean
 
 
-def catalogue(xlsx):
-    """{ean: product} from the sheet. xlsx is a path, or a file-like object when it came over the wire."""
-    wb = load_workbook(xlsx, read_only=True)  # read_only holds the file open: close it, or the next save is blocked on Windows
-    rows = wb.active.iter_rows(values_only=True)
-    col = {str(h).strip().lower(): i for i, h in enumerate(next(rows)) if h}
-    products = {}
-    for row in rows:
-        get = lambda h: str(row[col[h]] or "").strip() if h in col else ""
-        key = ean_key(row[col["ean"]] or "")
-        if not key:
-            continue
-        if key in products:
-            print(f"warning: duplicate EAN {key}, keeping the last row")
-        colour = (get("colour") or get("color")).lower() or colour_of(get("product name"), get("sku"))
-        products[key] = {
-            "name": get("product name"), "sku": get("sku"), "colour": colour,
-            "hex": COLOURS.get(colour, ""), "image": image_url(get("images") or get("image link") or get("image")),
-        }
-    wb.close()
-    return products
+def removal(rows, ean):
+    """The data row to delete for this EAN. Raises ValueError when there is no such product."""
+    key = ean_key(ean)
+    index = index_of(rows, key)
+    if index is None:
+        raise ValueError(f"EAN {ean} is not in the catalogue")
+    return index, key
 
 
 def render(products):
     """products.js, exactly as the browser expects to find it."""
-    return "const PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n"
+    return "var PRODUCTS = " + json.dumps(products, indent=1, ensure_ascii=False) + ";\n"
 
 
-def build(xlsx):
-    products = catalogue(xlsx)
+def build(rows=None):
+    """Refresh products.js, the copy that works with no signal, from the sheet."""
+    import sheet
+    products = catalogue(rows if rows is not None else sheet.rows())
     out = HERE / "products.js"
     out.write_text(render(products), encoding="utf-8")
     print(f"{len(products)} products -> {out.name}")
     return products
 
 
-if __name__ == "__main__":
-    assert colour_of("Organizer Bag (Dark Blue)", "x") == "dark blue"
+def self_check():
+    sheet_rows = [
+        ["Product Name", "EAN", "SKU", "Images", "Colour"],
+        ["Organizer Bag (Dark Blue)", "5949998498176", "obag", "https://drive.google.com/file/d/ABC/view", ""],
+        ["Plain Box", "0 8906 2093 5020 0", "sqboxcream", "", "teal"],
+    ]
+    made = catalogue(sheet_rows)
+    assert set(made) == {"5949998498176", "8906209350200"}, sorted(made)
+    assert made["5949998498176"] == {"name": "Organizer Bag (Dark Blue)", "sku": "obag", "colour": "dark blue",
+                                     "hex": "#1f2f5c", "image": "https://drive.google.com/thumbnail?id=ABC&sz=w1000"}
+    assert made["8906209350200"]["colour"] == "teal", "the Colour column beats the guess"
     assert colour_of("Black zipper bag - Grey", "x") == "grey"
-    assert colour_of("Jewellery Organiser", "sqboxcream") == "cream"
-    assert colour_of("Foldable Bag (Rose Red)", "fbag") == "rose red"
     assert colour_of("Jewellery Organiser", "jcasegolden") == "golden"
     assert ean_key(8906209350897.0) == ean_key("0 8906209350897") == "8906209350897"
-    build(sys.argv[1] if len(sys.argv) > 1 else HERE / "products.xlsx")
+
+    # a new product is appended, and lands in the sheet's own column order
+    index, values, ean = save(sheet_rows, {"name": "New Pouch", "ean": "999 000 111", "sku": "zznew", "colour": "red"})
+    assert (index, ean) == (None, "999000111"), (index, ean)
+    assert values == ["New Pouch", "999000111", "zznew", "", "red"], values
+    # an edit rewrites the row it names, and a blank field really blanks
+    index, values, ean = save(sheet_rows, {"name": "Renamed", "ean": "5949998498176", "sku": "obag"},
+                              replacing="5949998498176")
+    assert (index, ean) == (0, "5949998498176"), (index, ean)
+    assert values == ["Renamed", "5949998498176", "obag", "", ""], values
+    # an edit may move a product to a free EAN
+    assert save(sheet_rows, {"name": "Moved", "ean": "777", "sku": "obag"}, replacing="5949998498176")[0] == 0
+    assert removal(sheet_rows, "0 8906209350200") == (1, "8906209350200")
+
+    for bad, why, replacing in (
+            ({"name": "", "ean": "1", "sku": "s"}, "name", None),
+            ({"name": "n", "ean": "1", "sku": ""}, "SKU", None),
+            ({"name": "n", "ean": "", "sku": "s"}, "EAN", None),
+            ({"name": "n", "ean": "abc", "sku": "s"}, "digit", None),
+            ({"name": "n", "ean": "1", "sku": "s", "colour": "puce"}, "colour", None),
+            ({"name": "n", "ean": "5949998498176", "sku": "s"}, "already", None),
+            ({"name": "n", "ean": "1", "sku": "s"}, "nothing to update", "404404"),
+            ({"name": "n", "ean": "8906209350200", "sku": "s"}, "another product", "5949998498176")):
+        try:
+            save(sheet_rows, bad, replacing)
+            raise AssertionError(f"accepted {bad}")
+        except ValueError as e:
+            assert why in str(e), f"{bad} -> {e}"
+    try:
+        removal(sheet_rows, "404404404")
+        raise AssertionError("accepted a delete of a product that is not there")
+    except ValueError as e:
+        assert "not in the catalogue" in str(e), e
+    print("build.py self-check ok")
+
+
+if __name__ == "__main__":
+    self_check()
+    if "--check" not in sys.argv:
+        build()
