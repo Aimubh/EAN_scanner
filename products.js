@@ -774,21 +774,21 @@ var PRODUCTS = {
   "sku": "rbowl180ml",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1Z-7PcHRYTSeHU0kk2sxe_Wft09GZEOCf&sz=w1000"
  },
  "8906209350392": {
   "name": "Lazer 240ml Round Bagasse Bowls – Pack of 25 | Eco-Friendly Disposable Sugarcane Bowls | Leak-Proof, Non-Toxic & Durable | Ideal for Snacks, Curries & Sauces | White",
   "sku": "rbowl240ml",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1PXRW5FGYp41OW-F5B-YQ9rWwK1cUMc0R&sz=w1000"
  },
  "8906209350408": {
   "name": "Lazer 350ml Round Bagasse Bowls – Pack of 25 | Eco-Friendly Disposable Sugarcane Bowls | Leak-Proof, Non-Toxic & Durable | Ideal for Snacks, Curries & Sauces | White",
   "sku": "rbowl350ml",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1ezsevS9qorDYvz1u72SovNeplAYcrFbh&sz=w1000"
  },
  "8906209350347": {
   "name": "Lazer Bagasse Disposable Round Plates – 10 Inch (Pack of 10) | Biodegradable & Eco-Friendly | Hot & Cold Food Safe",
@@ -1096,7 +1096,7 @@ var PRODUCTS = {
   "sku": "7in1travelkit",
   "colour": "peach",
   "hex": "#f7c6a3",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1l9gz3Yccxyh2leKJpW6H5QC4UkQuchq9&sz=w1000"
  },
  "8906209350996": {
   "name": "Lazer 650ml Manual Handy Chopper with 3 Stainless Steel Blades | Multipurpose Vegetable & Fruit Cutter for Kitchen (Blue)",
@@ -1404,7 +1404,7 @@ var PRODUCTS = {
   "sku": "bscontainer-Pack6",
   "colour": "",
   "hex": "",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=10zdZaA7_Ny3knpnQHOHf583NoM9XJV4C&sz=w1000"
  },
  "8906209351757": {
   "name": "Lazer Toothbrush Holder Set of 2 | Bathroom Organizer Stand for Toothbrush Toothpaste Razor and Daily Essentials",
@@ -1509,7 +1509,7 @@ var PRODUCTS = {
   "sku": "mclock",
   "colour": "",
   "hex": "",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1qXQmzbXHF-5BI1412VjR5yzMhWEA_QzQ&sz=w1000"
  },
  "8906209351726": {
   "name": "Lazer 3-Compartment Collapsible Silicone Lunch Box with Spoon & Fork | Leak-Resistant Food Storage Container for Office School and Travel",
@@ -1523,14 +1523,14 @@ var PRODUCTS = {
   "sku": "gbottle500mllexie",
   "colour": "",
   "hex": "",
-  "image": "https://drive.google.com/drive/folders/1wgo-Wq53gQ6kh7LdnL45pyuuxFka0x6P?usp=sharing"
+  "image": "https://drive.google.com/thumbnail?id=13gMzu53XJCA_Hp9c943ZdzEmX715Aq36&sz=w1000"
  },
  "8906209352044": {
   "name": "Lazer 750ml High Borosilicate Glass Water Bottle | Transparent Reusable Drinking Bottle for Water Juice Beverages | Large Bottle for Home Office Daily Use",
   "sku": "gbottle750mllexie",
   "colour": "",
   "hex": "",
-  "image": "https://drive.google.com/drive/folders/1RlXb2zNESPrui_LxN0lrEnRJRFq3e1Py?usp=sharing"
+  "image": "https://drive.google.com/thumbnail?id=1iu0h4T2IwGadurQibGSHaqSQiBgEKzxC&sz=w1000"
  },
  "8906209352051": {
   "name": "Lazer Portable Pill Box with Multiple Compartments | Compact PP Medicine Tablet Storage Organizer | Travel Pill Case for Tablets Capsules Vitamins and Daily Essentials",
