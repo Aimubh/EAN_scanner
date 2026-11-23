@@ -1804,5 +1804,103 @@ var PRODUCTS = {
   "colour": "brown",
   "hex": "#6e4b2a",
   "image": "https://drive.google.com/thumbnail?id=1UJKv2TRwGWb1KYmtWvyf3qafcjq-Re8N&sz=w1000"
+ },
+ "5949998541803": {
+  "name": "Lazer USB-A to Type-C 45W All Protocol Fast Charging and 480 Mbps Data Sync Cable (1 M)",
+  "sku": "typeccable",
+  "colour": "red",
+  "hex": "#c62828",
+  "image": ""
+ },
+ "5949999065353": {
+  "name": "Lazer 65W SuperVOOC Charger for Oneplus Nord/CE/ 5G / Lite Mobiles Fast Charging",
+  "sku": "typeccharger",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": ""
+ },
+ "5949998893254": {
+  "name": "Lazer 25W Charger Type C Adapter for iPhone 15/ 15 Plus/ 15 Pro/ 15 Pro Max, iPhone 14/ 14 Plus/ 14 Pro/ 14 Pro Max, iPhone 13/ 12/ 11 Series with PD 3.0, BIS Certified | USB-C 25 Watt Original Fast Charging Adaptor (White)",
+  "sku": "iphonecharger",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": ""
+ },
+ "5949999270627": {
+  "name": "Lazer Essential Wireless Charger with USB-A to C Type Cable - Black",
+  "sku": "magpadblack",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": ""
+ },
+ "5949998834486": {
+  "name": "Lazer Essential Wireless Charger with USB-A to C Type Cable - White",
+  "sku": "magpadwhite",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": ""
+ },
+ "5949999213471": {
+  "name": "Lazer Essential Wireless Charger with USB-A to C Type Cable - Blue",
+  "sku": "magpadblue",
+  "colour": "blue",
+  "hex": "#2f5fa8",
+  "image": ""
+ },
+ "5949998955433": {
+  "name": "Lazer Wireless MagSleek 5000mAh 20W Fast Charging Sleek Digital Magsafe Power Bank | With Flagship on Display LED Indicator | Compatible with iPhone",
+  "sku": "magsleek",
+  "colour": "grey",
+  "hex": "#8a8d91",
+  "image": ""
+ },
+ "8906209351948": {
+  "name": "Lazer Long Soap Dish White | Rectangular Draining Soap Holder for Bathroom Kitchen and Wash Basin",
+  "sku": "lsoapdish",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": ""
+ },
+ "8906209351955": {
+  "name": "Lazer Micro Mate Lunchbox |Compact food container with secure lid for office, school, travel and daily meals| Lightweight, reusable and convenient for carrying lunch and snacks.",
+  "sku": "mmlunchbox",
+  "colour": "green",
+  "hex": "#3a8f4a",
+  "image": ""
+ },
+ "8906209351962": {
+  "name": "Lazer 3-Compartment Steel Lunch Box With Spoon & Fork | Three Food Sections For Organized Meals, Ideal For Office, School, College, Picnics And Travel",
+  "sku": "slunchbox",
+  "colour": "blue",
+  "hex": "#2f5fa8",
+  "image": ""
+ },
+ "8906209351979": {
+  "name": "Lazer Koi Koi Steel Lunch Box With Spoon & Chopsticks | Stainless Steel Tiffin Box for Office, School, Travel and Everyday Meals",
+  "sku": "kkslunchbox",
+  "colour": "purple",
+  "hex": "#6b3fa0",
+  "image": ""
+ },
+ "8906209351894": {
+  "name": "Lazer Clear Acrylic Bathroom Shelf, Wall Mounted Shower Caddy with Strong Adhesive Tape, No Drill Storage Rack for Toiletries, Kitchen & Washroom",
+  "sku": "wmshelf",
+  "colour": "",
+  "hex": "",
+  "image": ""
+ },
+ "8906209351900": {
+  "name": "Lazer Wall-Mounted Kitchen Storage Cabinet | Adjustable shelves, transparent door, utility hooks and no-drill installation for organised kitchen storage.",
+  "sku": "wmkitchencab",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": ""
+ },
+ "8906209352235": {
+  "name": "Lazer Double Layer Wire Dish Cleaning Cloth 20 x 20 cm (Pack of 10) | Reusable Scrubbing Cloth for Utensils, Pots, Pans, Stove, Sink and Kitchen Surfaces | Multipurpose Grease Cleaning Pad",
+  "sku": "dwcloth",
+  "colour": "grey",
+  "hex": "#8a8d91",
+  "image": ""
  }
 };
