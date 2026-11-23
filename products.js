@@ -312,7 +312,7 @@ var PRODUCTS = {
   "sku": "sqboxlavender",
   "colour": "lavender",
   "hex": "#b7a3d9",
-  "image": "https://drive.google.com/thumbnail?id=135iBntu1wlAAqLdm1G1oa27zEWvvRnov&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=11AZPlCln4KuLQF3yj_DeqtO13Iv33ZK_&sz=w1000"
  },
  "8906209350132": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Square Portable Mini Square Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
@@ -473,7 +473,7 @@ var PRODUCTS = {
   "sku": "scbagwhite",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": "https://drive.google.com/thumbnail?id=1LFA_FeqCL5tDHVOBcQxOwSrPspz5-P7U&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=117K0yWMFrbGxfTITt3VfZQ6G4FxbQzrT&sz=w1000"
  },
  "8906209351153": {
   "name": "Lazer Double Layer Makeup Bag for Women – Clear Cosmetic Organizer Case, Travel Toiletry & Makeup Storage Pouch, Portable Makeup Organizer (Black)",
@@ -1397,7 +1397,7 @@ var PRODUCTS = {
   "sku": "fscontainer-Pack4",
   "colour": "",
   "hex": "",
-  "image": "https://drive.google.com/thumbnail?id=1D3X3dqLwdkZP8_ra1O-ioS7uXb3G5p_N&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=1sCMX96CjhdXyTOhB44nAuWxKIK4yWSqo&sz=w1000"
  },
  "8906209351740": {
   "name": "Lazer Airtight Kitchen Storage Containers, 1200 ml, Pack of 6 | Leak-Proof Stackable Pantry Organiser Boxes for Fridge, Dry Food, Snacks and Groceries",
@@ -1517,5 +1517,292 @@ var PRODUCTS = {
   "colour": "",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1niUuU7SKS9DT0FUYrQZ0yr4SUSPc-ERb&sz=w1000"
+ },
+ "8906209352037": {
+  "name": "Lazer 500ml High Borosilicate Glass Water Bottle | Transparent Reusable Drinking Bottle for Water Juice Beverages | Slim Bottle for Home Office Travel",
+  "sku": "gbottle500mllexie",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/drive/folders/1wgo-Wq53gQ6kh7LdnL45pyuuxFka0x6P?usp=sharing"
+ },
+ "8906209352044": {
+  "name": "Lazer 750ml High Borosilicate Glass Water Bottle | Transparent Reusable Drinking Bottle for Water Juice Beverages | Large Bottle for Home Office Daily Use",
+  "sku": "gbottle750mllexie",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/drive/folders/1RlXb2zNESPrui_LxN0lrEnRJRFq3e1Py?usp=sharing"
+ },
+ "8906209352051": {
+  "name": "Lazer Portable Pill Box with Multiple Compartments | Compact PP Medicine Tablet Storage Organizer | Travel Pill Case for Tablets Capsules Vitamins and Daily Essentials",
+  "sku": "pillbox",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1YTGHculzRNcmzpo0JNfgjRNoaZVpqpNQ&sz=w1000"
+ },
+ "8906209352068": {
+  "name": "Lazer Compact Pill Cutter with Covered Case | ABS and Silicone Tablet Cutting Box | Portable Medicine Tablet Splitter for Home Travel and Everyday Use",
+  "sku": "pillcutter",
+  "colour": "brown",
+  "hex": "#6e4b2a",
+  "image": "https://drive.google.com/thumbnail?id=1-x_GZ8aR_s1oOQcM9uE6etzIS-8IB6l3&sz=w1000"
+ },
+ "8906209352075": {
+  "name": "Lazer Portable Pill Organizer with Tablet Cutting Section | PC and Silicone Medicine Storage Box with Compartments | Compact Travel Pill Case for Tablets Capsules Vitamins",
+  "sku": "pillcutter2",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1BU7A7MYitVhsA7OZETJI1YiffiOhRFGy&sz=w1000"
+ },
+ "8906209352082": {
+  "name": "Lazer Travel Toiletry Bottle Set 5 with EVA Storage Bag | PP and PE Portable Refillable Containers for Shampoo Lotion Cosmetic Toiletries | Compact Travel Organizer Kit",
+  "sku": "pretsbottle-Set5",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1wK4EDdLCy0AW-5CdInOe2Z6UVksovMj3&sz=w1000"
+ },
+ "8906209352099": {
+  "name": "Lazer 100ml Travel Bottles Set of 5 | Refillable Portable Toiletry Containers for Shampoo Lotion Cosmetic Liquids | PET PP Travel Bottles with PVC Storage Bag",
+  "sku": "tsbottle-Set5",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=19nxOk7O_pAzhlVaf68uCGI02Nv34fjUP&sz=w1000"
+ },
+ "8906209351993": {
+  "name": "Lazer 7-Piece Travel Toiletry Bottle Set of 7 with Storage Bag | Portable Refillable Cosmetic Containers for Shampoo, Lotion & Personal Care Liquids | Compact Travel Bottling Kit",
+  "sku": "tsbottle-Set7",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1eOYt2q-0KGVcMIqqUDoYMfKvsATw40qT&sz=w1000"
+ },
+ "8906209351917": {
+  "name": "Lazer Iron Shoe Cover for Clothes Protection | 5mm Thick Non-Stick Iron Soleplate Protector | Easy Fit Heat-Resistant Ironing Cover for Fabric Garments,White",
+  "sku": "itcover",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1QMeO3qKQbnnzPwkQfoIbRtf1CRqSRiQ9&sz=w1000"
+ },
+ "8906209351924": {
+  "name": "Lazer Retractable Clothes Clip with 60cm Extendable Cord | Wall Mounted Telescopic Clamp for Towels Toys Gloves Socks & Small Items | Multipurpose Hanging Holder,Silver",
+  "sku": "srthclip",
+  "colour": "grey",
+  "hex": "#8a8d91",
+  "image": "https://drive.google.com/thumbnail?id=1k3Db27alRHHdCxV096uZLm24vhH40Ls_&sz=w1000"
+ },
+ "8906209351931": {
+  "name": "Lazer Facial Cleansing Sponge Sticks | 12 Pc Soft Face Wash Puff for Gentle Exfoliation & Deep Cleansing | Reusable Face Cleansing Sponge for All Skin Types | Yellow | Pack of 1",
+  "sku": "spongepuff",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1RAoNVQ28BkLw9HddyyxkG91w39lf5ZSq&sz=w1000"
+ },
+ "8906209352013": {
+  "name": "Lazer Single Watch Travel Case for Men & Women | PU Leather Wrist Watch Storage Box with Snap Button Closure | Compact Protective Watch Organizer Case for Travel Home & Gifting",
+  "sku": "swatchcase",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=1-T8ZM9VCLtdlDvt9bvMFMMZl6sYd5Ecp&sz=w1000"
+ },
+ "8906209352006": {
+  "name": "Lazer Clear Plastic Bangle Organizer Box with 4 Rods | Transparent Jewellery Storage Case with Lid | Bangle Bracelet Watch Holder for Women Girls | Portable Jewellery Organizer",
+  "sku": "4rbanglebox",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=108s-uV4MrqEorzEz6wM5GEkAY5AcrxCX&sz=w1000"
+ },
+ "8906209352020": {
+  "name": "Lazer Luggage Cover Set of 3 for 20, 24 & 28 Inch Trolley Bags | Waterproof & Dustproof Transparent PVC Suitcase Covers with Handle & Trolley Cutouts",
+  "sku": "3suitcasecover",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1sxp724NO7Xv3Tswy9nRChZO0LpPjV6-k&sz=w1000"
+ },
+ "8906209352143": {
+  "name": "Lazer Professional Makeup Organizer Bag with Adjustable Dividers | Cosmetic Storage Case with Zipper Pockets & Carry Handle | Portable Beauty Travel Bag for Women & Makeup Artists",
+  "sku": "pmakeupbag",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=10Dslr5O7T5EesABx3COxgYAxsZbmW4Xo&sz=w1000"
+ },
+ "8906209352389": {
+  "name": "Lazer 350 ml Stainless Steel Water Bottle with  Leakproof Lid & Carry Loop | Compact Reusable Bottle for Office Travel School",
+  "sku": "vsswbottle",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1kuefWQDp5ZlZfm7pupKLoYHgbJv8w-4c&sz=w1000"
+ },
+ "8906209352129": {
+  "name": "Lazer Portable Sewing Kit Box with Threads Needles Scissors Measuring Tape Safety Pins Buttons & Thimble | Transparent Sewing Organizer Case with Handle for Home Travel Repairs",
+  "sku": "ovalskit",
+  "colour": "green",
+  "hex": "#3a8f4a",
+  "image": "https://drive.google.com/thumbnail?id=14-wpxju1nqfYxeDixnyNW7FTz0CImNmH&sz=w1000"
+ },
+ "8906209352167": {
+  "name": "Lazer Side Opening Salad Pod Jar with Separate Compartments | Portable Food Storage Container for Fruits Snacks Vegetables Dressing | Reusable Lunch Jar for Office Travel",
+  "sku": "spjar",
+  "colour": "green",
+  "hex": "#3a8f4a",
+  "image": "https://drive.google.com/thumbnail?id=1wPVvbL1vtCpsfiDScJx7aU1js5mPDeE7&sz=w1000"
+ },
+ "8906209352174": {
+  "name": "Lazer Foldable Mini Sponge Mop | Compact Handheld Squeeze Cleaning Tool for Kitchen Bathroom Table Glass & Countertops | Portable Absorbent Mop for Quick Wet and Dry Cleaning",
+  "sku": "msmop",
+  "colour": "white",
+  "hex": "#f4f4f2",
+  "image": "https://drive.google.com/thumbnail?id=1kwZ98zY7a-SkGWxRcLDT_5Yk7kMsFR_l&sz=w1000"
+ },
+ "8906209352181": {
+  "name": "Lazer DIY Bracelet Making Kit for Kids & Beginners | Colourful Beads Charms and Jewellery Craft Accessories Set | Creative Friendship Bracelet Making Set for Girls Craft Activities & Gifting",
+  "sku": "braceletkit",
+  "colour": "multi-color",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1Ar_73y6V-jYnABp8L5CoY8WTxkBrvdKR&sz=w1000"
+ },
+ "8906209352198": {
+  "name": "Lazer Shoe Washing Machine Laundry Bag | Protective Mesh Sneaker Wash Bag with Zipper Closure | Reusable Shoe Cleaning Pouch for Sports Shoes Slippers and Machine Washing",
+  "sku": "swbag",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1Z8ne4N2BgCN5umw9zf9TEqqlzq045_CU&sz=w1000"
+ },
+ "8906209352204": {
+  "name": "Lazer Anti Heel Crack Half Socks with Moisturizing Gel | Reusable Heel Protection Sleeves for Dry Rough Cracked Feet | Soft Cushion Heel Socks for Men & Women",
+  "sku": "acsock",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1Mh5rKI7cJKTmSmMzmT9LXjJtaWq5pRt0&sz=w1000"
+ },
+ "8906209352211": {
+  "name": "Lazer Microfiber Gap Dust Cleaning Brush | Slim Flexible Duster for Under Furniture Appliances Sofa Bed Fridge and Narrow Spaces | Reusable Household Dust Removal Cleaning Tool",
+  "sku": "dcbrush",
+  "colour": "grey",
+  "hex": "#8a8d91",
+  "image": "https://drive.google.com/thumbnail?id=1etJf1c1qtbetu57Rphfhg8XDl6QBN6dQ&sz=w1000"
+ },
+ "8906209352228": {
+  "name": "Lazer Transparent Self Adhesive Wall Hooks Gold Pack of 4 | Clear Multipurpose Hanging Hooks for Kitchen Bathroom Bedroom Office Keys Towels Accessories and Home Organization",
+  "sku": "tswallhook",
+  "colour": "gold",
+  "hex": "#d4af37",
+  "image": "https://drive.google.com/thumbnail?id=1C8ZnA_MTZjHQQIOnfeX-NFVYinBa-WBC&sz=w1000"
+ },
+ "8906209352242": {
+  "name": "Lazer Heel Liner Cushion Inserts Black Pack of 2 | Soft Shoe Heel Pads for Improved Fit Comfort and Friction Protection | Self Adhesive Back Heel Grips for Men & Women",
+  "sku": "heelpadblack",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=15IVkbdGKvGY1y02-BaGtT-cPThksmOy5&sz=w1000"
+ },
+ "8906209352259": {
+  "name": "Lazer Heel Liner Cushion Inserts Beige Pack of 2 | Soft Shoe Heel Pads for Improved Fit Comfort and Friction Protection | Self Adhesive Back Heel Grips for Men & Women",
+  "sku": "heelpadbeige",
+  "colour": "brown",
+  "hex": "#6e4b2a",
+  "image": "https://drive.google.com/thumbnail?id=1jB-I_j_mIgLEjH0fitUR9rjFzGKbz3eZ&sz=w1000"
+ },
+ "8906209352266": {
+  "name": "Lazer Small Gap Cleaning Brush (Pack of 5) | Slim Crevice Scrubber for Window Tracks Tiles Grout Sink Corners Bathroom Kitchen and Narrow Spaces | Multipurpose Household Detail Cleaning Tool",
+  "sku": "sgbrush",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=196X0bAJkD-8PaESA_2EmO7ffw3dfPGne&sz=w1000"
+ },
+ "8906209352273": {
+  "name": "Lazer Shoulder Strap Cushion Pads Beige Pack of 2 | Soft Silicone Strap Protectors for Bags Backpacks Handbags Luggage and Shoulder Belts | Comfortable Pressure Relief Pads",
+  "sku": "sspads",
+  "colour": "brown",
+  "hex": "#6e4b2a",
+  "image": "https://drive.google.com/thumbnail?id=1ww0W2GQDrvZtXezy9dm27K1q0oilCLr2&sz=w1000"
+ },
+ "8906209352280": {
+  "name": "Lazer Silicone Painting Mat for Kids | Reusable Art Craft Activity Mat with Raised Edges and Organizer Sections | Washable Table Protector for Painting Drawing Colouring and DIY Projects",
+  "sku": "spmat",
+  "colour": "baby pink",
+  "hex": "#f4c2d0",
+  "image": "https://drive.google.com/thumbnail?id=1qITmnSzUhQtTQz2c4P1NDRqc5RjTLslJ&sz=w1000"
+ },
+ "8906209352297": {
+  "name": "Lazer 4 in 1 Tile Grout Cleaning Brush | Multipurpose Scrubber for Bathroom Kitchen Floor Joints Corners Sink and Narrow Gaps | Handheld Deep Cleaning Tool with Multiple Brush Surfaces",
+  "sku": "tgbrush",
+  "colour": "dark green",
+  "hex": "#1f5e3a",
+  "image": "https://drive.google.com/thumbnail?id=1ApiNQp5CU7aU6luE__RzgU0gj62YkG_x&sz=w1000"
+ },
+ "8906209352303": {
+  "name": "Lazer Silicone Oven Mitts for Kitchen | Heat Resistant Mini Oven Gloves with Anti-Slip Grip | Reusable Pot Holders for Hot Pans, Cookware, Air Fryer & Baking | 1 Pair (2 Pieces)",
+  "sku": "sogloves",
+  "colour": "green",
+  "hex": "#3a8f4a",
+  "image": "https://drive.google.com/thumbnail?id=1CkM7uXO4HQoXRILk2PULTdCWvpV8vXHF&sz=w1000"
+ },
+ "8906209352310": {
+  "name": "Lazer Panda Mini Wipes | Compact Disposable Cleaning Tissues for Travel Handbag Office Car Home and Everyday Use | Portable Pocket Wipes Pack for Quick Cleaning",
+  "sku": "pmwipes",
+  "colour": "blue",
+  "hex": "#2f5fa8",
+  "image": "https://drive.google.com/thumbnail?id=17XrlTsntXec1HoryCC_xevk-aho_toMw&sz=w1000"
+ },
+ "8906209352327": {
+  "name": "Lazer Shoe Cleaning Brush with Handle | Multipurpose Footwear Scrubbing Tool for Sneakers Sports Shoes Soles Canvas and Casual Footwear | Handheld Dirt Removal Brush",
+  "sku": "scbrush",
+  "colour": "green",
+  "hex": "#3a8f4a",
+  "image": "https://drive.google.com/thumbnail?id=1DleFrJV2SYcTuVrCMCQvWB29t3oLbRSz&sz=w1000"
+ },
+ "8906209352334": {
+  "name": "Lazer Transparent Corner Protectors Pack of 4 | Clear Soft Edge Guards for Table Desk Cabinet Furniture Corners | Discreet Protective Cushions for Home",
+  "sku": "tcguard",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1REUIHozc_JidMwefyxhLzfrSuXy3lZjz&sz=w1000"
+ },
+ "8906209352341": {
+  "name": "Lazer T Shape Transparent Corner Protectors Pack of 4 | Clear Furniture Edge Guards for Table Desk Cabinet and Counter Corners | Soft Protective Cushion for Home",
+  "sku": "tcguardt",
+  "colour": "",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1darccysfaVMeULELHMO_W9Ww8SqbJW84&sz=w1000"
+ },
+ "8906209352150": {
+  "name": "Lazer 18 Piece Manicure Pedicure Grooming Kit with Storage Case | Nail Clippers Cuticle Tools Scissors Tweezers and Personal Care Accessories for Home Travel",
+  "sku": "18in1maniset",
+  "colour": "peach",
+  "hex": "#f7c6a3",
+  "image": "https://drive.google.com/thumbnail?id=1QIK7nPqYryxdGfMXzY8bofE6TpRTWtwt&sz=w1000"
+ },
+ "8906209352358": {
+  "name": "Lazer Silicone Ice Ball Mold with Lid | Reusable Round Ice Cube Maker for Water Juice Mocktails Cold Coffee and Chilled Drinks | Flexible Freezer Tray for Home Kitchen and Parties",
+  "sku": "sibmold",
+  "colour": "multicolor",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1PwXaOhbPpdgfVr6fNyTJEQkLtOPC5A4y&sz=w1000"
+ },
+ "8906209352112": {
+  "name": "Lazer Minty Hints Sugar Free Candies 100g | 12 Assorted Fruit Flavours | Vitamin C Enriched | Individually Wrapped Candies | Sweet Treats for Kids & Adults | Sharing Pack",
+  "sku": "mhcandies",
+  "colour": "multi-color",
+  "hex": "",
+  "image": "https://drive.google.com/thumbnail?id=1pGfJ5ryeglXLbszWwVR5EgBNejoKYIAy&sz=w1000"
+ },
+ "8906209352105": {
+  "name": "Lazer Transparent EVA Toiletry Travel Pouches Set of 3 | Waterproof Ziplock Storage Bags for Cosmetics, Makeup, Skincare & Personal Care Essentials | Reusable Multipurpose Organizers for Travel & Home",
+  "sku": "stbag",
+  "colour": "black",
+  "hex": "#1b1c1f",
+  "image": "https://drive.google.com/thumbnail?id=1tame3GrCspIDbNB0N677ohNCovgDk_9V&sz=w1000"
+ },
+ "8906209352372": {
+  "name": "Lazer Transparent Makeup Organizer Bag with Handle | Waterproof Cosmetic Travel Case with Double Zipper | Large Capacity Toiletry Beauty Storage Bag for Women Home Travel & Vanity",
+  "sku": "rvbag",
+  "colour": "brown",
+  "hex": "#6e4b2a",
+  "image": "https://drive.google.com/thumbnail?id=16CHv9sK2rqICqnsFZJfmE78aL5uu3wMQ&sz=w1000"
+ },
+ "8906209352365": {
+  "name": "Lazer Foldable Storage Ottoman Stool with Hidden Storage | Multipurpose Sitting Bench, Footrest & Coffee Table Cube for Living Room, Bedroom & Study | Organizer for Clothes, Books & Toys (Brown)",
+  "sku": "fstoolb",
+  "colour": "brown",
+  "hex": "#6e4b2a",
+  "image": "https://drive.google.com/thumbnail?id=1UJKv2TRwGWb1KYmtWvyf3qafcjq-Re8N&sz=w1000"
  }
 };
