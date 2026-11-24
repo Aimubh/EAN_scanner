@@ -19,9 +19,17 @@ COLOURS = {
     "black": "#1b1c1f", "grey": "#8a8d91", "blue": "#2f5fa8", "white": "#f4f4f2", "cream": "#ece2cc",
     "pink": "#e8a0bf", "purple": "#6b3fa0", "green": "#3a8f4a", "cyan": "#3ec1d3", "teal": "#1f8a8a",
     "red": "#c62828", "brown": "#6e4b2a", "peach": "#f7c6a3", "lavender": "#b7a3d9", "silver": "#c0c4c8",
-    "gold": "#d4af37", "golden": "#d4af37",  # not "transparent"/"clear": they describe windows and displays, not the item
+    "gold": "#d4af37", "golden": "#d4af37",
+    "transparent": "", "translucent": "", "off white": "#f7f5ef", "beige": "#e8dcc8",
+    "yellow": "#f2c230", "stainless steel": "#b8bcc0", "metallic": "#b0b4b8",
 }
-IN_NAME = re.compile(r"\b(" + "|".join(COLOURS) + r")\b", re.I)
+# Real colours, but these words turn up describing a window, a lid or a cap far more often than the
+# item: "Oil Dispenser Bottle Set with Stainless Steel cap" is not a steel-coloured bottle, and a
+# saree cover with a transparent window is not a transparent cover. They are valid in the Colour
+# column and get a swatch; they are only never inferred from the name or the SKU.
+SET_NOT_GUESSED = {"transparent", "translucent", "off white", "beige", "yellow",
+                   "stainless steel", "metallic"}
+IN_NAME = re.compile(r"\b(" + "|".join(c for c in COLOURS if c not in SET_NOT_GUESSED) + r")\b", re.I)
 IMAGE_HEADERS = ("images", "image link", "image")  # whichever one the sheet uses
 
 
@@ -29,7 +37,8 @@ def colour_of(name, sku):
     found = IN_NAME.findall(name)
     if found:
         return found[-1].lower()  # variant colour is the last one mentioned
-    return next((c for c in COLOURS if sku.lower().endswith(c.replace(" ", ""))), "")
+    return next((c for c in COLOURS
+                 if c not in SET_NOT_GUESSED and sku.lower().endswith(c.replace(" ", ""))), "")
 
 
 def ean_key(ean):
@@ -162,6 +171,11 @@ def self_check():
     assert colour_of("Black zipper bag - Grey", "x") == "grey"
     assert colour_of("Jewellery Organiser", "jcasegolden") == "golden"
     assert ean_key(8906209350897.0) == ean_key("0 8906209350897") == "8906209350897"
+    # set-not-guessed colours are accepted from the Colour column but never read off the name or SKU
+    assert colour_of("Oil Dispenser with Stainless Steel cap", "odset") == ""
+    assert colour_of("Transparent Glass Bottle - Blue", "x") == "blue"
+    assert colour_of("Heel Pad", "heelpadbeige") == ""
+    assert catalogue([sheet_rows[0], ["Shelf", "123", "wmshelf", "", "Transparent"]])["123"]["colour"] == "transparent"
 
     # a new product is appended, and lands in the sheet's own column order
     index, values, ean = save(sheet_rows, {"name": "New Pouch", "ean": "999 000 111", "sku": "zznew", "colour": "red"})
