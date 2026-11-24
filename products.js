@@ -9,7 +9,7 @@ var PRODUCTS = {
  "8906209350200": {
   "name": "Lazer Silicone Travel Bottles for Toiletries – TSA Approved 3oz Leak-Proof BPA-Free Squeezable Containers with Clear Toiletry Bag | Portable Travel Accessories (Pack of 4)",
   "sku": "tsbottle2",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1b4jFYm3MQNGvDRQ2SBzabAw_QcaH3cSx&sz=w1000"
  },
@@ -184,8 +184,8 @@ var PRODUCTS = {
  "5949998583001": {
   "name": "Lazer Car Accessories in 10 PCs Car Wiper Detergent Effervescent Tablets Washer Auto Windshield Cleaner Glass Wash Cleaning Tablets",
   "sku": "cctablet",
-  "colour": "",
-  "hex": "",
+  "colour": "blue",
+  "hex": "#2f5fa8",
   "image": "https://drive.google.com/thumbnail?id=1XesjOJyWSxJYS8bf-YRX8Ihhl0rC1UcF&sz=w1000"
  },
  "5949998511073": {
@@ -198,49 +198,49 @@ var PRODUCTS = {
  "8906209351382": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case (Without Closure)",
   "sku": "sboxopen",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1F-9zMi1je5f91xY5FbUdfbC-8oZ3BJa6&sz=w1000"
  },
  "5949999165978": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case",
   "sku": "sbox",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1XSa7So5dDy4dkp6066zooUvIXLH8xDwZ&sz=w1000"
  },
  "8906209350415": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case (Pack of 2)",
   "sku": "sbox-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1X3iHevRtSuB1N6URZdeaVjfJmmzXOQ7t&sz=w1000"
  },
  "8906209350422": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case (Pack of 4)",
   "sku": "sbox-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1Dc63eQVu0Y2kIVoMbvXhBh_CR71DZAA9&sz=w1000"
  },
  "8906209350439": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case (Pack of 6)",
   "sku": "sbox-Pack6",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1QVCwNBTvHe3u7OE7Ti24P1Dhnk8NEsWp&sz=w1000"
  },
  "8906209350446": {
   "name": "Lazer Collapsible Fabric Storage Cubes Organizer Foldable Storage Basket for Organizing Toys, Books, Shelves, Wardrobe, Closet, Large Storage Box with Handles and Steel Frame Case (Pack of 10)",
   "sku": "sbox-Pack10",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1t4fpNNuOUV6T7bWCx5Nm3Upp919_3_8l&sz=w1000"
  },
  "8906209351146": {
   "name": "Lazer 27L Under-Bed Storage Bag with Zipper – Transparent Dustproof Organizer for Clothes, Blankets, Shoes & Toys (60×30×15 cm)",
   "sku": "shoebox",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1QdS6bnEwQSgmHwGDPqmmUPs-O2afYw3B&sz=w1000"
  },
@@ -373,14 +373,14 @@ var PRODUCTS = {
  "8906209350231": {
   "name": "Lazer 10 Pcs Adhesive Wall Hooks, Heavy Duty Self-Adhesive Hooks for Wall Hanging, Transparent Waterproof Sticker Hooks",
   "sku": "stickyhook10",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1AQ_sji6yVpdCuibUqa5M5etEnZT8azso&sz=w1000"
  },
  "8906209350248": {
   "name": "Lazer 20 Pcs Adhesive Wall Hooks, Heavy Duty Self-Adhesive Hooks for Wall Hanging, Transparent Waterproof Sticker Hooks",
   "sku": "stickyhook20",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1ybyVH0Rx2eduT3cynfWDbJlVA-m_qL-v&sz=w1000"
  },
@@ -394,14 +394,14 @@ var PRODUCTS = {
  "8906209350613": {
   "name": "Lazer Clothes Hangers (Pack of 6) with Non-Slip Pads, Space Saving, 6 mm Thickness, Super Lightweight Organizer, Clothes Hanger for Wardrobe, Clothing Hanging",
   "sku": "nshanger",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1GRGCVBy8gR5t8FghxkodOWftJ31HXIII&sz=w1000"
  },
  "8906209350620": {
   "name": "Lazer Wooden Hanger for Clothes Hanging, Hangers for Wardrobe and Cupboard, 8 Hook Adjustable Clothes Hanger for Lingerie, Belt, Scarf, Tie, Garments and Accessories (Pack of 1)",
   "sku": "whanger",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1ryaj9fkGBNaT7n9GkJcjS4vfXRzguZ_m&sz=w1000"
  },
@@ -513,71 +513,71 @@ var PRODUCTS = {
  "5949998742521": {
   "name": "Lazer Flower Design Tube Shaped Bottle Paper Soap - Portable & Travel-Friendly Clean Soft Bath Hand Wash (Pack of 2, Assorted Colors)",
   "sku": "tpsoap",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1ajXImDp0FeHcUcIJUrgC-B-zhdNra841&sz=w1000"
  },
  "5949999117960": {
   "name": "Lazer Disposable Travel Paper Soap Strips For Handwash - Travelling Scented Mini Paper Soap Sheets Flakes Cleaning Foaming Hand Washing (Pack Of 2 - Total 40 Sheets)",
   "sku": "boxsoap",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1DoTprGORkxc4ixtPfQjOJBN7UQvhRJqk&sz=w1000"
  },
  "5949998750533": {
   "name": "Lazer 5 Pack Space Saver Reusable Vacuum Bags for Travel with Hand Pump (1 Large/2 Medium/2 Small) Polyethylene Airtight Compression Storage for Packing Vaccine Sealer Bag with Ziplock - Transparent",
   "sku": "vacbag",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=16UZYzof5MtMOy_ZXnyaQ7dktp6LZCBKc&sz=w1000"
  },
  "8906209350767": {
   "name": "Lazer Round Surface Matka Stand for Water Pot | Pot Stand for kitchen utensils | Steel Matka Stand for Kitchen | Water Pot Stand for Kitchen| 8 X 8 X 7.5 Inch",
   "sku": "matkastand",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1nkPK099wht7jHXh7eBmCt22vrqNLJp6R&sz=w1000"
  },
  "8906209350750": {
   "name": "Lazer 8 Adjustable Strips Interlocking Self Assembly Plastic Drawer Divider Storage Organizer - Grid Closet Partition Strips for Home, Office, Wardrobe, Cabinet (Pack of 8)",
   "sku": "ddivider",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1kcINbCLzI5rncqsh2z9KxF59vuu1Yc1v&sz=w1000"
  },
  "8906209350705": {
   "name": "Lazer Pack of 1 Large Moisture Proof Nylon Large Size Organizer with Zippered Closure Underbed Storage Bags For Clothes (54 x 46 x 28 cm)",
   "sku": "mattybag-Pack1",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=12ikjzWc6K3VXGpxSyr9GkOJAztS1wtgJ&sz=w1000"
  },
  "8906209350712": {
   "name": "Lazer Pack of 2 Large Moisture Proof Nylon Large Size Organizer with Zippered Closure Underbed Storage Bags For Clothes (54 x 46 x 28 cm)",
   "sku": "mattybag",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1q8LXzwAfZJQLJpkjW_3VNuN-9qOrQ_yN&sz=w1000"
  },
  "8906209350729": {
   "name": "Lazer Pack of 4 Large Moisture Proof Nylon Large Size Organizer with Zippered Closure Underbed Storage Bags For Clothes (54 x 46 x 28 cm)",
   "sku": "mattybag-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1x9Ka2Wu-DqkYy7uXTMpL5Zg7cgKAOHBe&sz=w1000"
  },
  "8906209350736": {
   "name": "Lazer Pack of 6 Large Moisture Proof Nylon Large Size Organizer with Zippered Closure Underbed Storage Bags For Clothes (54 x 46 x 28 cm)",
   "sku": "mattybag-Pack6",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1s34SRg3Yy8-M-wQifgIu0dH9BA3_oMTn&sz=w1000"
  },
  "8906209350743": {
   "name": "Lazer Pack of 10 Large Moisture Proof Nylon Large Size Organizer with Zippered Closure Underbed Storage Bags For Clothes (54 x 46 x 28 cm)",
   "sku": "mattybag-Pack10",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1S1LFcImyHP9wgrnRmJfRowuVP4BvuNBh&sz=w1000"
  },
  "8906209351276": {
@@ -590,119 +590,119 @@ var PRODUCTS = {
  "8906209350033": {
   "name": "Lazer Set of 2 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover2",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1Ub6GEKUHwATBAb5GSRVkT_9jjvlOP05J&sz=w1000"
  },
  "8906209350644": {
   "name": "Lazer Set of 4 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover-pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1U1SlTN6Kh_a9iSH45s8NXZibgUiWquOT&sz=w1000"
  },
  "8906209350651": {
   "name": "Lazer Set of 6 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=13V6VkqYhJw922dhfk5jw8mVRRkAt_cyK&sz=w1000"
  },
  "8906209350668": {
   "name": "Lazer Set of 8 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover-pack8",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1Dg0TX9sFmDhCCYQVZ5Pb9uwJqbgTLTUL&sz=w1000"
  },
  "8906209350675": {
   "name": "Lazer Set of 10 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover-pack10",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1SwgVsiyOUeBSYdZK-_MonNHG52Za4vod&sz=w1000"
  },
  "8906209350682": {
   "name": "Lazer Set of 15 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover-pack15",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1farRdnZIWTSWrhGjd4yN0fcnkmqUi9wQ&sz=w1000"
  },
  "8906209350699": {
   "name": "Lazer Set of 20 Non-Woven Foldable Saree Cover/ Clothes Storage/ Wardrobe Organizer For Clothes with Zip & Transparent Window (45 x 33 x 22 cm)",
   "sku": "nwcover-pack20",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1e2jg4zuqHZeKdtFautH2T2SSzVOa5y4T&sz=w1000"
  },
  "8906209350637": {
   "name": "Lazer Cotton Saree Bags/ Covers For Storage Big Size Single (16 X 14 Inch) With Zip Closure For Clothes Bags And Wardrobe Organizer With Transparent Mesh Window Set of 6",
   "sku": "scover",
-  "colour": "",
-  "hex": "",
+  "colour": "cream",
+  "hex": "#ece2cc",
   "image": "https://drive.google.com/thumbnail?id=1Cm1dRpzus_UufktZ7oFIl1CMmBgCVTqy&sz=w1000"
  },
  "8906209351207": {
   "name": "Lazer Coloring Pouch for Kids – Set of 4 DIY Canvas Pencil Bags | Superhero, Unicorn, Space & Airplane Themes | Art & Craft Gift for Boys & Girls",
   "sku": "canvaspouch-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "off white",
+  "hex": "#f7f5ef",
   "image": "https://drive.google.com/thumbnail?id=1oe-spg5H9bzeanGNp4RA9lEl_oESisSV&sz=w1000"
  },
  "8906209351214": {
   "name": "Lazer Printed Cotton Canvas Travel Pouch Set of 2 – Medicine Bag & Toiletry Organizer for Medications, Cosmetics, Toiletries & Daily Essentials",
   "sku": "canvaspouch-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "off white",
+  "hex": "#f7f5ef",
   "image": "https://drive.google.com/thumbnail?id=1sL1kmL3_2lpci_eWIeKDf6nLtZPtiwJV&sz=w1000"
  },
  "8906209351221": {
   "name": "Lazer Cotton Canvas First Aid Kit Pouch – Portable Medical Bag for Emergencies, Hiking & Camping, 8x5 in, Zipper Closure, Hand Washable, Unlined with Printed Design",
   "sku": "canvaspouch",
-  "colour": "",
-  "hex": "",
+  "colour": "off white",
+  "hex": "#f7f5ef",
   "image": "https://drive.google.com/thumbnail?id=1nF-zB_N6nVW3zPL6OTAeJXB2IAJ-_Q9Y&sz=w1000"
  },
  "8906209351238": {
   "name": "Lazer Travel Pack of 10 Shoe Bags for Packing, Drawstring Dustproof Shoe Storage Bags, Portable Clear Shoe Pouches for Men & Women, Large 30 x 35 cm",
   "sku": "shoebag-Pack10",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1hkktGh57eTu6-kg5VgvJYlbXcScogsm3&sz=w1000"
  },
  "8906209351245": {
   "name": "Lazer Pack of 10 Reusable Frosted Zip Bags – Multipurpose Travel Storage Pouches for Clothes, Shoes, Toiletries, Cosmetics & Stationery – Gift & Travel Essentials – 30*35cm",
   "sku": "clothbag-Pack10",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1-wxOavRoPmQEgslhx6NPPoSwELPxpUH_&sz=w1000"
  },
  "8906209351252": {
   "name": "Lazer Pack of 10 Frosted Makeup Bags – Clear Cosmetic Travel Pouches with Zippers, Portable, Waterproof, Airline Compliant PE Bags for Women & Men, 8*5 Inches",
   "sku": "toiletrybag-Pack10",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1tqNaBJ7yfn_bh2a_Et9zSm7czZvJHfer&sz=w1000"
  },
  "8906209351269": {
   "name": "Lazer Double Layer Roti Wrap – Pack of 3 Premium Cotton Chapati Covers with Flaps, Soft & Durable Cotton Seed Fabric for Roti, Paratha, Phulka, Hot Case Kitchen Use",
   "sku": "roticover-Pack3",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1dmRaApETNwhSQ5YBJGrhig_o3otiEJ_i&sz=w1000"
  },
  "8906209351283": {
   "name": "Lazer Reusable Vegetable Storage Bags Pack of 10 | 10x10 Inch Zip Lock Fridge Bags | Plastic Food & Jewellery Storage Pouches with Zipper",
   "sku": "foodpouch-Pack10",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1pXTitc0XLNJNEbIhLYDtUsxJqrrrwfx_&sz=w1000"
  },
  "8906209351290": {
   "name": "Lazer Pack of 17 Transparent Jewellery Storage Pouches | Clear PVC Zip Lock Organizer Bags for Rings, Earrings, Necklaces & Accessories",
   "sku": "jewellerypouch-Pack17",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1w79NP4obawpBm-wsEwllFS_MIl_YvllQ&sz=w1000"
  },
@@ -730,8 +730,8 @@ var PRODUCTS = {
  "5949998602320": {
   "name": "Lazer Mini Travel Sewing Kit Beginner Box Pocket Folding with Sewing Needle, Thread, Cotton, Pin, Scissors, Button, Clip, Needle Threader",
   "sku": "sewingkit",
-  "colour": "",
-  "hex": "",
+  "colour": "pink",
+  "hex": "#e8a0bf",
   "image": "https://drive.google.com/thumbnail?id=1CiqPPXilAUMvGZCtpQiKD7s5n8G25WZx&sz=w1000"
  },
  "8906209350224": {
@@ -751,22 +751,22 @@ var PRODUCTS = {
  "8906209350217": {
   "name": "Lazer 100 PCS Air Fryer Paper Liners, Disposable Oil-Proof Parchment Paper for Air Fryer, Microwave, Baking, Roasting & Cooking – Square 10 Inch",
   "sku": "airfryliner",
-  "colour": "",
-  "hex": "",
+  "colour": "brown",
+  "hex": "#6e4b2a",
   "image": "https://drive.google.com/thumbnail?id=1LSVBVm-YkR_4R1P1yaXiDx70TXEi-FH-&sz=w1000"
  },
  "8906209351009": {
   "name": "Lazer Air Fryer Silicone Basket Liners Set of 6 | Reusable Non-Stick Baking Mats | Heat Resistant Flexible Tray for Air Fryer Oven | Easy Clean Cooking Accessories Kitchen Essentials",
   "sku": "safliner",
-  "colour": "",
-  "hex": "",
+  "colour": "blue",
+  "hex": "#2f5fa8",
   "image": "https://drive.google.com/thumbnail?id=1EbVke-ZMHWSEvtPijJG9f4h7fGEtn9XP&sz=w1000"
  },
  "5949999091444": {
   "name": "Lazer Pack of 50 Multipurpose Disposable Spoons | Wooden Dining Flatware | Ideal for Kids Birthday, Wedding & Party | Eco-Friendly, Natural & Biodegradable (140mm)",
   "sku": "wspoon",
-  "colour": "",
-  "hex": "",
+  "colour": "brown",
+  "hex": "#6e4b2a",
   "image": "https://drive.google.com/thumbnail?id=1eKjBesIeKH00s4Vn7lQlXDNUnm3NxUAC&sz=w1000"
  },
  "8906209350385": {
@@ -793,8 +793,8 @@ var PRODUCTS = {
  "8906209350347": {
   "name": "Lazer Bagasse Disposable Round Plates – 10 Inch (Pack of 10) | Biodegradable & Eco-Friendly | Hot & Cold Food Safe",
   "sku": "rplate",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1dF5uuY25HVGZfTzkUEViTBI7CUPcAIk7&sz=w1000"
  },
  "8906209350262": {
@@ -835,84 +835,84 @@ var PRODUCTS = {
  "8906209351078": {
   "name": "Lazer 500ml Glass Oil Dispenser Bottle Set – 2 Bottles with Stainless Steel Funnel, 4 Caps with Filters, 8 Stickers, Marker, Flap Cap & Dust Cap, Leak-Proof Oil & Vinegar Bottle for Kitchen",
   "sku": "odset",
-  "colour": "",
-  "hex": "",
+  "colour": "green",
+  "hex": "#3a8f4a",
   "image": "https://drive.google.com/thumbnail?id=1N2gW5Nc28OKtH_Uhz3i-vNLaHtPUNKIK&sz=w1000"
  },
  "8906209351023": {
   "name": "Lazer Glass Lunch Boxes Set of 3 Airtight Leakproof Food Storage Containers (370ml, 630ml, 930ml) with Locking Lid, Microwave Safe, BPA-Free Meal Prep for Office & Home",
   "sku": "gbowlset",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1389gWbCzjf1seVKTEv-tvj5oB2xzu4KG&sz=w1000"
  },
  "8906209351030": {
   "name": "Lazer Glass Lunch Boxes Set of 3 Airtight Leakproof Food Storage Containers (500ml, 800ml, 1200ml) with Locking Lid, Microwave Safe, BPA-Free Meal Prep for Office & Home",
   "sku": "gbowlswset",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1MDgZbxdbEq-F4cSj4NYrKsK_OR2YQvac&sz=w1000"
  },
  "8906209351047": {
   "name": "Lazer Double Wall Glass Tea-Coffee Cup 80 ML, Borosilicate Insulated Small Mug, Extra Wide Fancy Design for Tea & Coffee",
   "sku": "gmug",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1hlcz-bzXXTUmcWXAA7waZtsn3AfmJ-oo&sz=w1000"
  },
  "8906209351054": {
   "name": "Lazer Glass & Stainless Steel Storage Jar with Spoon, 270 ml | Airtight Wide Mouth Container for Ghee, Sugar, Oil & Pickle | Kitchen Storage",
   "sku": "gheejar",
-  "colour": "",
-  "hex": "",
+  "colour": "metallic",
+  "hex": "#b0b4b8",
   "image": "https://drive.google.com/thumbnail?id=1izhCpQVTvqNDyy-gRCG7aEj9TWDK2jdS&sz=w1000"
  },
  "8906209351061": {
   "name": "Lazer 750 ML Vacuum Borosilicate Glass Jar with Airtight Lid, Food Saver Sealer Attachment, Storage Container for Coffee Beans, Oats, Spices, Sugar",
   "sku": "g750mljar",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1YSmlGV-a5KggCQT6noSbHt4uKxyLLQaW&sz=w1000"
  },
  "8906209350378": {
   "name": "Lazer 6 Pcs 60ml Small Clear Glass Bottles with Lids & Stainless Steel Funnel – Leakproof Mini Travel Bottles for Kombucha, Ginger Shots, Oils & Liquids",
   "sku": "gsbottle",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1s4F7J92rUcCh2ABY2AM45Y7QH_2Q7p8d&sz=w1000"
  },
  "8906209350293": {
   "name": "Lazer Transparent Glass Bottle Pack of 3 (300 ml Each) – Leak Proof, Airtight Storage for Milk, Juice & Water",
   "sku": "milkbottle300ml",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1aHtgfavxoVJzhtHQprFV0plpu9JzhLmn&sz=w1000"
  },
  "8906209350354": {
   "name": "Lazer Transparent Glass Bottle Pack of 3 (500 ml Each) – Leak Proof, Airtight Storage for Milk, Juice & Water",
   "sku": "milkbottle500ml",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=17RrD-S9EIXRgG8yIcep075YdxyYSUAVS&sz=w1000"
  },
  "8906209350361": {
   "name": "Lazer Transparent Glass Bottle Pack of 3 (1000 ml Each) – Leak Proof, Airtight Storage for Milk, Juice & Water",
   "sku": "milkbottle1000ml",
-  "colour": "",
+  "colour": "translucent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1gWJ3wvuYJeE42ctKHabDGlvUyTN8wlbq&sz=w1000"
  },
  "8906209350019": {
   "name": "Lazer Pure Borosilicate Glass Water Bottle 300ml – BPA-Free, Eco-Friendly, Durable & Leak-Proof Transparent Bottle",
   "sku": "gbottle",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=11fmyl--W1kKTXOwgveBWpJh6JekWBVdj&sz=w1000"
  },
  "8906209350026": {
   "name": "Lazer Pure Borosilicate Glass Water Bottle Set of 4 – 300ml Each, BPA-Free, Eco-Friendly, Durable & Leak-Proof Transparent Bottles",
   "sku": "gbottleset",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1saBesBOeNrFu6NXIiPuTabgEbKhjPfh5&sz=w1000"
  },
@@ -926,14 +926,14 @@ var PRODUCTS = {
  "8906209350309": {
   "name": "Lazer Pure Borosilicate Glass Water Bottle 500ml – BPA-Free, Eco-Friendly, Durable & Leak-Proof Transparent Bottle",
   "sku": "gbottle500ml",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1QZvnMkUyR77VXPsnDmhC58doORUfoZ6w&sz=w1000"
  },
  "8906209350316": {
   "name": "Lazer Pure Borosilicate Glass Water Bottle 750ml – BPA-Free, Eco-Friendly, Durable & Leak-Proof Transparent Bottle",
   "sku": "gbottle750ml",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=15gFjUHDC_XIvIJel8SABBWkrfVLyESkJ&sz=w1000"
  },
@@ -968,14 +968,14 @@ var PRODUCTS = {
  "5949998900693": {
   "name": "Lazer Disposable Compression Travel Socks – Portable & Breathable Cotton Socks for Men & Women | Ideal for Travel, Sports, Camping & Hotel Use (Pack of 5)",
   "sku": "pcsock",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1M8tJcNwJaiKLpMIbFCnRNNTOhEG0PSK9&sz=w1000"
  },
  "5949998819452": {
   "name": "Lazer Transparent Spout Pouch – BPA Free Reusable Plastic Liquid Storage Bag with Cap | Ideal for Juice, Shake, Tea, Coffee & More | 50 ml (Pack of 5)",
   "sku": "spouch",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1HWe_k-oFiCm1HWWK5__6df2lpnz57oBj&sz=w1000"
  },
@@ -996,28 +996,28 @@ var PRODUCTS = {
  "8906209350040": {
   "name": "Lazer Eco-Friendly Wheat Straw Cutting Board | Durable Kitchen Chopping Board with Handle | Perfect for Fruits, Vegetables & Everyday Use (34 x 24 cm)",
   "sku": "chopboard",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1bj4IECTAb8XS1cpNi2fmFDPTdZBuxeVM&sz=w1000"
  },
  "8906209350828": {
   "name": "Lazer 3 in 1 Foldable Kitchen Kit – Collapsible Chopping Board, Vegetable Washing Basket & Drain Bowl | Food Grade Plastic | Portable for Kitchen, Camping & Travel",
   "sku": "3in1fwbasket",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1_HTizFdOgLVJX58PkP1so8JFjLnj9Znb&sz=w1000"
  },
  "8906209350057": {
   "name": "Lazer 1/4 Inch T-Type Wrench Spanner Set | Magnetic Screwdriver Bits with 9-Piece Socket Set | Multi-Purpose Hand Tool Kit (Pack of 24)",
   "sku": "sdriver",
-  "colour": "",
-  "hex": "",
+  "colour": "yellow",
+  "hex": "#f2c230",
   "image": "https://drive.google.com/thumbnail?id=1LAWaSv0UPn7TKcS1pT-6eZXk_PA2oG6w&sz=w1000"
  },
  "8906209350064": {
   "name": "Lazer Paper Soap Pack of 2 | Portable Mini Soap Sheets in Apple-Shaped Case | Scented Disposable Bath Flakes for Handwash Travel & Outdoor Use (Assorted Colors)",
   "sku": "apsoap",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1GII0owkyKBWwWtJxwgeuhEQZhC-H80AM&sz=w1000"
  },
@@ -1038,8 +1038,8 @@ var PRODUCTS = {
  "8906209350149": {
   "name": "Lazer Pant Hangers for Wardrobe – 5-in-1 Multi-Layer Space-Saving Trouser, Leggings & Saree Organizer | Heavy-Duty Plastic & Stainless Steel Hanger",
   "sku": "sshanger",
-  "colour": "",
-  "hex": "",
+  "colour": "stainless steel",
+  "hex": "#b8bcc0",
   "image": "https://drive.google.com/thumbnail?id=1WByOKVCkJk6sfaEhcEcsD8HXUN2PGs1h&sz=w1000"
  },
  "8906209350835": {
@@ -1052,15 +1052,15 @@ var PRODUCTS = {
  "8906209350842": {
   "name": "Lazer Bamboo Wooden Cloth Clips – Natural Eco-Friendly Laundry Pegs for Clothes Drying, Craft Projects & Home Organization (Pack of 10)",
   "sku": "bwclip",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1pBvRj-SoAgmtHRoft_pF1lXLeV98dMNz&sz=w1000"
  },
  "8906209350859": {
   "name": "Lazer 16 Pack Stainless Steel Clothespins – Durable 1.5\" Utility Clips for Clothesline, Laundry, Craft Projects, Photo Clips & Home Organization",
   "sku": "ssclip",
-  "colour": "",
-  "hex": "",
+  "colour": "stainless steel",
+  "hex": "#b8bcc0",
   "image": "https://drive.google.com/thumbnail?id=1EpPpqic6XfcHiWpQWjL74X9Ot0XwttSU&sz=w1000"
  },
  "8906209350866": {
@@ -1108,15 +1108,15 @@ var PRODUCTS = {
  "8906209350989": {
   "name": "Lazer 50 GSM Pack of 2 Bubble Wrap Roll – 1 Ft Wide x 15 Ft Long, Thick Cushioning for Shipping, Moving & Storage",
   "sku": "bubblewrap",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=16M2Lrp7TRgVJRNX9i7_iY2Ik_HVxydKx&sz=w1000"
  },
  "8906209351092": {
   "name": "Lazer Cotton Reusable Vegetable Bags – Eco-Friendly, Breathable, and Washable Cloth Storage Bags for Fridge (12x12 Inches, Pack of 10)",
   "sku": "vegbagPack10",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1_Jpu72rzFjEQhf2ixFSNwlamKc3_hDPi&sz=w1000"
  },
  "8906209351108": {
@@ -1185,8 +1185,8 @@ var PRODUCTS = {
  "8906209351337": {
   "name": "Lazer Portable Mini Lint Roller with Storage Box | Reusable Sticky Pet Hair & Dust Remover for Clothes, Sofa, Furniture, Carpet, Bed Sheets & Travel Use",
   "sku": "lintroller",
-  "colour": "",
-  "hex": "",
+  "colour": "light blue",
+  "hex": "#9cc4e4",
   "image": "https://drive.google.com/thumbnail?id=1oRU2mxJqJZtOJnCUKIK1YthZJ1GRCKb1&sz=w1000"
  },
  "8906209351405": {
@@ -1206,29 +1206,29 @@ var PRODUCTS = {
  "8906209351450": {
   "name": "Lazer Mesh Laundry Bags for Washing Machine Set of 3 | Reusable Laundry Wash Bags with Rust-Free Zipper | Delicates Washing Bags for Bras, Lingerie, Baby Clothes, Socks, Shirts & Underwear",
   "sku": "meshbag-Pack3",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1qXvZI_7Stv_407Uh6w8OLmwWW9s39zvp&sz=w1000"
  },
  "8906209351443": {
   "name": "Lazer Disposable Wooden Forks, Pack of 50 (140 mm) | Eco-Friendly Biodegradable Wooden Cutlery | Wooden Dining Tableware for Birthday, Wedding, Party, Picnic & Catering",
   "sku": "wfork",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1C0mScBjsP8eGpkl0EIGcfhv9MbP03jQC&sz=w1000"
  },
  "8906209351436": {
   "name": "Lazer Disposable Wooden Spoon & Fork Set, 50 Pack (140 mm) | Eco-Friendly Biodegradable Food Grade Wooden Cutlery | Wooden Dining Flatware for Kids Birthday, Wedding, Party & Picnic",
   "sku": "wspoonfork",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1ITLE6rRiW0e7xwXvabo-HUvAp2d07P25&sz=w1000"
  },
  "8906209351412": {
   "name": "Lazer Wide Iron-On Hem Tape for Fabric | Fusible Adhesive Bonding Web for Clothes, Curtains, Home Textiles, Garments & No-Sew Hemming | 20 Meters - 19 mm( width)",
   "sku": "webhemming",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1bZPGlFYYzkTAswnGTLwRcNg5W24dwtsV&sz=w1000"
  },
  "8906209351429": {
@@ -1241,127 +1241,127 @@ var PRODUCTS = {
  "8906209351498": {
   "name": "Lazer Reusable Noise Cancelling 4 Ear Plugs with Storage Case | Sound Reduction Earplugs for Sleeping, Snoring, Study, Work, Flight, Swimming, Shooting & Travel",
   "sku": "earplugs",
-  "colour": "",
-  "hex": "",
+  "colour": "blue",
+  "hex": "#2f5fa8",
   "image": "https://drive.google.com/thumbnail?id=1qzGR3kJFRQ93H6X4UKkh1-2AR35yVXQe&sz=w1000"
  },
  "8906209351474": {
   "name": "Lazer Silicone Travel Bottles 80 ml Each, Pack of 2 | Leakproof Refillable Toiletry Bottles for Shampoo, Conditioner, Face Wash, Lotion, Sunscreen & Moisturizer | Squeezable Travel Liquid Containers",
   "sku": "pretsbottle",
-  "colour": "",
-  "hex": "",
+  "colour": "green",
+  "hex": "#3a8f4a",
   "image": "https://drive.google.com/thumbnail?id=1FKo56D1_sFfEiYT07bCRiZXUhDm1uqqJ&sz=w1000"
  },
  "8906209351481": {
   "name": "Lazer Portable Inflatable Travel Neck Pillow | U-Shaped Foldable Air Pillow with Manual Inflation for Flight, Car, Train, Office, Meditation & Travel Head Support",
   "sku": "prenpillow",
-  "colour": "",
-  "hex": "",
+  "colour": "dark blue",
+  "hex": "#1f2f5c",
   "image": "https://drive.google.com/thumbnail?id=1iTiQiddhoCQINHRpGFMvBs-gxIZffV9U&sz=w1000"
  },
  "8906209351528": {
   "name": "Lazer Silicone Travel Bottles Set of 3, 60ml Leakproof Refillable Travel Size Toiletry Containers for Shampoo, Conditioner, Lotion, Body Wash, TSA Approved Squeeze Dispenser for Travel, Gym & Camping",
   "sku": "tsbottle3",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1dx1o9Axs0pFI5OM993A2h_9gKBpEatkx&sz=w1000"
  },
  "8906209351504": {
   "name": "Lazer Unbleached Cotton Papad Drying Cloth with Net, Breathable Food Drying Mesh Cover for Papad, Vadagam, Spices & Millets, Washable & Reusable (38 x 28 Inches)",
   "sku": "cnetcover",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=11Jedk6fewAeED_K8N1lDPLgM39cu5cBh&sz=w1000"
  },
  "8906209351573": {
   "name": "Lazer 2 x 1 Inch Direct Thermal Barcode Labels, 1000 Each, Pack of 1 Self-Adhesive Labels for FNSKU, MRP, Shipping, Barcode & Inventory, Compatible with Direct Thermal Printers",
   "sku": "2x1tlabel",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1I7fiC41tptti9bdKs10THynjNcRyVdvG&sz=w1000"
  },
  "8906209351535": {
   "name": "Lazer 2 x 1 Inch Direct Thermal Barcode Labels, 1000 Each, Pack of 2 Self-Adhesive Labels for FNSKU, MRP, Shipping, Barcode & Inventory, Compatible with Direct Thermal Printers",
   "sku": "2x1tlabel-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1SOPzHg_SRHa2h3yXxrvVriBwOI27ET-m&sz=w1000"
  },
  "8906209351580": {
   "name": "Lazer 2 x 1 Inch Direct Thermal Barcode Labels, 1000 Each, Pack of 4 Self-Adhesive Labels for FNSKU, MRP, Shipping, Barcode & Inventory, Compatible with Direct Thermal Printers",
   "sku": "2x1tlabel-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1m7dvdDuIfYaiUMvgmcrUY1NlFFLM8WFf&sz=w1000"
  },
  "8906209351597": {
   "name": "Lazer 2 x 1 Inch Direct Thermal Barcode Labels, 1000 Each, Pack of 8 Self-Adhesive Labels for FNSKU, MRP, Shipping, Barcode & Inventory, Compatible with Direct Thermal Printers",
   "sku": "2x1tlabel-Pack8",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1CqUR3mf2VKDmLSxJZu0Yddzmn9lVApLs&sz=w1000"
  },
  "8906209351603": {
   "name": "Lazer 2 x 1 Inch Direct Thermal Barcode Labels, 1000 Each, Pack of 20 Self-Adhesive Labels for FNSKU, MRP, Shipping, Barcode & Inventory, Compatible with Direct Thermal Printers",
   "sku": "2x1tlabel-Pack20",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1kjmnqasmvFKhyyMfN1e-3jqnlqJWayDp&sz=w1000"
  },
  "8906209351542": {
   "name": "Lazer 3 x 5 Shipping Label Roll, 500 Labels for Thermal Printer Self-Adhesive Direct Thermal Labels for Shipping, Courier, Parcel & Barcode Printing, Compatible with Thermal Printers",
   "sku": "3x5tlabel",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1c7biVHZvPgbyMbfkrh4k7hpUQXnIhTFq&sz=w1000"
  },
  "8906209351610": {
   "name": "Lazer 3 x 5 Shipping Label Roll, 500 Labels Each, Pack of 2 for Thermal Printer Self-Adhesive Direct Thermal Labels for Shipping, Courier, Parcel & Barcode Printing, Compatible with Thermal Printers",
   "sku": "3x5tlabel-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1sJSX_sDCxGEPQRq27h3ugGxhLUlA_EJt&sz=w1000"
  },
  "8906209351627": {
   "name": "Lazer 3 x 5 Shipping Label Roll, 500 Labels Each, Pack of 4, for Thermal Printer Self-Adhesive Direct Thermal Labels for Shipping, Courier, Parcel & Barcode Printing, Compatible with Thermal Printers",
   "sku": "3x5tlabel-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1bwYhR2PiReDQzyJEOVTPH9Yw_OK-sBuT&sz=w1000"
  },
  "8906209351634": {
   "name": "Lazer 3 x 5 Shipping Label Roll, 500 Labels Each, Pack of 10 for Thermal Printer Self-Adhesive Direct Thermal Labels for Shipping, Courier, Parcel & Barcode Printing, Compatible with Thermal Printers",
   "sku": "3x5tlabel-Pack10",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=167YWNGdCJf0EdYZb9H5sXa9ggwnSWzWl&sz=w1000"
  },
  "8906209351559": {
   "name": "Lazer 4 x 6 Inch Direct Thermal Shipping Labels, 400 Labels, Pack of 1 Self-Adhesive Barcode Labels for Shipping, Courier, Parcel & E-Commerce, Compatible with Direct Thermal Printers",
   "sku": "4x6tlabel",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=14g6RsA9hkGIRrFLj7IQbDvxL8LwdoEjT&sz=w1000"
  },
  "8906209351641": {
   "name": "Lazer 4 x 6 Inch Direct Thermal Shipping Labels, 400 Labels Each, Pack of 2 Self-Adhesive Barcode Labels for Shipping, Courier, Parcel & E-Commerce, Compatible with Direct Thermal Printers",
   "sku": "4x6tlabel-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=11MVQwuWwOWrtz4H9g555DHb0eV4Vbo9p&sz=w1000"
  },
  "8906209351658": {
   "name": "Lazer 4 x 6 Inch Direct Thermal Shipping Labels, 400 Labels Each, Pack of 4 Self-Adhesive Barcode Labels for Shipping, Courier, Parcel & E-Commerce, Compatible with Direct Thermal Printers",
   "sku": "4x6tlabel-Pack4",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1Sdrodwl9WXMnZx5zpFpCeOZqpcG-nsAS&sz=w1000"
  },
  "8906209351665": {
   "name": "Lazer 4 x 6 Inch Direct Thermal Shipping Labels, 400 Labels Each, Pack of 10 Self-Adhesive Barcode Labels for Shipping, Courier, Parcel & E-Commerce, Compatible with Direct Thermal Printers",
   "sku": "4x6tlabel-Pack10",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1ERW6cc3hqS13WP--Q8zvgqg2TsP5eIJx&sz=w1000"
  },
  "8906209351672": {
@@ -1374,77 +1374,77 @@ var PRODUCTS = {
  "8906209351702": {
   "name": "Lazer Magic Eraser Cleaning Sponge, Pack of 5, 11 × 7 × 2 cm | Multi-Purpose Melamine Foam for Walls, Kitchens, Bathrooms, Shoes, Tiles, Appliances & Household Surfaces",
   "sku": "magiceraser",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1OGVe8xIoWAvgn9et1HAQScjs8qhGT95k&sz=w1000"
  },
  "8906209351689": {
   "name": "Lazer 74-Piece Sewing Kit with Threads, Needles, Scissors and Tape |Complete 74 -piece set with threads, needles, scissors, buttons, measuring tape and needle threader for daily stitching.",
   "sku": "sewingkit74",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1iHv9cU5vGKko4kXzq4HayiWEdkKo8uiU&sz=w1000"
  },
  "8906209351696": {
   "name": "Lazer 90-Piece Sewing Kit with Threads, Needles, Scissors and Tape | Complete sewing set with threads, needles, scissors, buttons, measuring tape and needle threader for everyday clothing repairs.",
   "sku": "sewingkit90",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1HlJG6hXSa9nEdk1OPOwnSuKrlli0YfGm&sz=w1000"
  },
  "8906209351733": {
   "name": "Lazer Fridge Storage Containers with Removable Colander, Set of 4 | Leakproof Refrigerator Organizer Boxes for Fruits, Vegetables & Fresh Food, 600ml,1400ml,2600ml, 4500 ml",
   "sku": "fscontainer-Pack4",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1sCMX96CjhdXyTOhB44nAuWxKIK4yWSqo&sz=w1000"
  },
  "8906209351740": {
   "name": "Lazer Airtight Kitchen Storage Containers, 1200 ml, Pack of 6 | Leak-Proof Stackable Pantry Organiser Boxes for Fridge, Dry Food, Snacks and Groceries",
   "sku": "bscontainer-Pack6",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=10zdZaA7_Ny3knpnQHOHf583NoM9XJV4C&sz=w1000"
  },
  "8906209351757": {
   "name": "Lazer Toothbrush Holder Set of 2 | Bathroom Organizer Stand for Toothbrush Toothpaste Razor and Daily Essentials",
   "sku": "toholder-Pack2",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1SWYwgVAV_NTTciBBDWNioptAsuugv392&sz=w1000"
  },
  "8906209351764": {
   "name": "Lazer Double Bar Soap Dish | Dual Soap Holder for Bathroom Kitchen and Wash Basin | Compact Draining Soap Stand",
   "sku": "dbarsoapdish",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1YZmmDJi2U3m4H3kmsaKcVHC5F1B-lt08&sz=w1000"
  },
  "8906209351771": {
   "name": "Lazer Capsule-Shaped Travel Toothbrush Case Set of 2| Waterproof & Hygienic Portable Toothbrush Holder for Home, Office, Camping & Travel",
   "sku": "ctholder-Pack2",
-  "colour": "",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1j9z8sJ-30m3fMZ_tHWnqZCa16kzR_60K&sz=w1000"
  },
  "8906209351788": {
   "name": "Lazer Stainless Steel Self-Adhesive Towel Holder for Bathroom | Wall-Mounted Towel Bar, Napkin Rod & Clothes Hanger | No-Drill Magic Sticker Installation",
   "sku": "stowelholder",
-  "colour": "",
-  "hex": "",
+  "colour": "silver",
+  "hex": "#c0c4c8",
   "image": "https://drive.google.com/thumbnail?id=1aVbNhJL108IqM3I8kGVm5zxErYpkg0r-&sz=w1000"
  },
  "8906209351795": {
   "name": "Lazer Travel Toothbrush Case with Cup, Pack of 2 | Transparent Portable Toothbrush Holder for Adults & Family | Hygienic Storage for Home, Office, Camping & Travel",
   "sku": "toothbrushcase-pack2",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1Y38v_wmysVGQfC5vncaliSGaghmuLfVR&sz=w1000"
  },
  "8906209351801": {
   "name": "Lazer Travel Toothbrush Holder & Soap Case Set | Portable Toothbrush Organizer with Leakproof Soap Box for Bathroom, Gym, Camping & Travel",
   "sku": "t&scase",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1ia1_htXgOIwJJKdfrKmK5l83QlUeGbSb&sz=w1000"
  },
@@ -1458,8 +1458,8 @@ var PRODUCTS = {
  "8906209351825": {
   "name": "Lazer Greek Yogurt Maker & Hung Curd Strainer | Clear Whey Separator with Fine Mesh Filter for Homemade Labneh, Thick Curd & Soft Cheese | Non-Electric Reusable Container",
   "sku": "yogfilter",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1UCr6Fqc4RP4xULT8QEuI9pvFZpWRPpHy&sz=w1000"
  },
  "8906209351832": {
@@ -1472,15 +1472,15 @@ var PRODUCTS = {
  "8906209351849": {
   "name": "Lazer Foldable Wardrobe Organizer for Clothes, Set of 3 | Shirt Stacker Storage Boxes, Cupboard Baskets & Almirah Organizers for T-Shirts, Jeans and Garments",
   "sku": "clothorg-Pack3",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=1dtS3Wjcxzc5wCpWJNkRLFhWTHMH1uSfS&sz=w1000"
  },
  "8906209351856": {
   "name": "Lazer 4-Tier Multipurpose Storage Trolley with Wheels | Slim Space-Saving Plastic Organizer Rack with Ventilated Baskets for Kitchen, Bathroom, Office & Laundry",
   "sku": "4kitchentrolley",
-  "colour": "",
-  "hex": "",
+  "colour": "black",
+  "hex": "#1b1c1f",
   "image": "https://drive.google.com/thumbnail?id=1SabJdE6QvPx-D472HAPJjnFyKT9VEPms&sz=w1000"
  },
  "8906209351863": {
@@ -1493,42 +1493,42 @@ var PRODUCTS = {
  "8906209351870": {
   "name": "Lazer 1500 ml Fridge Storage Containers, Set of 6 | Transparent Stackable Refrigerator Organizer Boxes with Removable Drain Tray for Fruits & Vegetables",
   "sku": "fscontainer-pack6",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1RRgzdRq6YPiU5hiYIPf32ros5kBu0Ije&sz=w1000"
  },
  "8906209351887": {
   "name": "Lazer 6-Grid Fridge Storage Organizer Box | Multipurpose Kitchen Container for Vegetables, Fruits, Snacks & Household Storage",
   "sku": "6gridfcontainer",
-  "colour": "",
-  "hex": "",
+  "colour": "white",
+  "hex": "#f4f4f2",
   "image": "https://drive.google.com/thumbnail?id=17jhoPEsvY_SEM1qk1FL0zlZHzTCP_-wy&sz=w1000"
  },
  "8906209351719": {
   "name": "Lazer Mini 3-Digit Combination Padlock for Luggage Bags Lockers Backpacks and Travel Security | Keyless Number Lock",
   "sku": "mclock",
-  "colour": "",
-  "hex": "",
+  "colour": "grey",
+  "hex": "#8a8d91",
   "image": "https://drive.google.com/thumbnail?id=1qXQmzbXHF-5BI1412VjR5yzMhWEA_QzQ&sz=w1000"
  },
  "8906209351726": {
   "name": "Lazer 3-Compartment Collapsible Silicone Lunch Box with Spoon & Fork | Leak-Resistant Food Storage Container for Office School and Travel",
   "sku": "viplunchbox",
-  "colour": "",
-  "hex": "",
+  "colour": "red",
+  "hex": "#c62828",
   "image": "https://drive.google.com/thumbnail?id=1niUuU7SKS9DT0FUYrQZ0yr4SUSPc-ERb&sz=w1000"
  },
  "8906209352037": {
   "name": "Lazer 500ml High Borosilicate Glass Water Bottle | Transparent Reusable Drinking Bottle for Water Juice Beverages | Slim Bottle for Home Office Travel",
   "sku": "gbottle500mllexie",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=13gMzu53XJCA_Hp9c943ZdzEmX715Aq36&sz=w1000"
  },
  "8906209352044": {
   "name": "Lazer 750ml High Borosilicate Glass Water Bottle | Transparent Reusable Drinking Bottle for Water Juice Beverages | Large Bottle for Home Office Daily Use",
   "sku": "gbottle750mllexie",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1iu0h4T2IwGadurQibGSHaqSQiBgEKzxC&sz=w1000"
  },
@@ -1570,7 +1570,7 @@ var PRODUCTS = {
  "8906209351993": {
   "name": "Lazer 7-Piece Travel Toiletry Bottle Set of 7 with Storage Bag | Portable Refillable Cosmetic Containers for Shampoo, Lotion & Personal Care Liquids | Compact Travel Bottling Kit",
   "sku": "tsbottle-Set7",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1eOYt2q-0KGVcMIqqUDoYMfKvsATw40qT&sz=w1000"
  },
@@ -1591,8 +1591,8 @@ var PRODUCTS = {
  "8906209351931": {
   "name": "Lazer Facial Cleansing Sponge Sticks | 12 Pc Soft Face Wash Puff for Gentle Exfoliation & Deep Cleansing | Reusable Face Cleansing Sponge for All Skin Types | Yellow | Pack of 1",
   "sku": "spongepuff",
-  "colour": "",
-  "hex": "",
+  "colour": "yellow",
+  "hex": "#f2c230",
   "image": "https://drive.google.com/thumbnail?id=1RAoNVQ28BkLw9HddyyxkG91w39lf5ZSq&sz=w1000"
  },
  "8906209352013": {
@@ -1612,7 +1612,7 @@ var PRODUCTS = {
  "8906209352020": {
   "name": "Lazer Luggage Cover Set of 3 for 20, 24 & 28 Inch Trolley Bags | Waterproof & Dustproof Transparent PVC Suitcase Covers with Handle & Trolley Cutouts",
   "sku": "3suitcasecover",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1sxp724NO7Xv3Tswy9nRChZO0LpPjV6-k&sz=w1000"
  },
@@ -1661,15 +1661,15 @@ var PRODUCTS = {
  "8906209352198": {
   "name": "Lazer Shoe Washing Machine Laundry Bag | Protective Mesh Sneaker Wash Bag with Zipper Closure | Reusable Shoe Cleaning Pouch for Sports Shoes Slippers and Machine Washing",
   "sku": "swbag",
-  "colour": "",
-  "hex": "",
+  "colour": "yellow",
+  "hex": "#f2c230",
   "image": "https://drive.google.com/thumbnail?id=1Z8ne4N2BgCN5umw9zf9TEqqlzq045_CU&sz=w1000"
  },
  "8906209352204": {
   "name": "Lazer Anti Heel Crack Half Socks with Moisturizing Gel | Reusable Heel Protection Sleeves for Dry Rough Cracked Feet | Soft Cushion Heel Socks for Men & Women",
   "sku": "acsock",
-  "colour": "",
-  "hex": "",
+  "colour": "beige",
+  "hex": "#e8dcc8",
   "image": "https://drive.google.com/thumbnail?id=1Mh5rKI7cJKTmSmMzmT9LXjJtaWq5pRt0&sz=w1000"
  },
  "8906209352211": {
@@ -1752,14 +1752,14 @@ var PRODUCTS = {
  "8906209352334": {
   "name": "Lazer Transparent Corner Protectors Pack of 4 | Clear Soft Edge Guards for Table Desk Cabinet Furniture Corners | Discreet Protective Cushions for Home",
   "sku": "tcguard",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1REUIHozc_JidMwefyxhLzfrSuXy3lZjz&sz=w1000"
  },
  "8906209352341": {
   "name": "Lazer T Shape Transparent Corner Protectors Pack of 4 | Clear Furniture Edge Guards for Table Desk Cabinet and Counter Corners | Soft Protective Cushion for Home",
   "sku": "tcguardt",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1darccysfaVMeULELHMO_W9Ww8SqbJW84&sz=w1000"
  },
@@ -1836,7 +1836,7 @@ var PRODUCTS = {
  "8906209351894": {
   "name": "Lazer Clear Acrylic Bathroom Shelf, Wall Mounted Shower Caddy with Strong Adhesive Tape, No Drill Storage Rack for Toiletries, Kitchen & Washroom",
   "sku": "wmshelf",
-  "colour": "",
+  "colour": "transparent",
   "hex": "",
   "image": ""
  },
