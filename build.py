@@ -16,6 +16,7 @@ HERE = Path(__file__).parent
 COLOURS = {
     "dark blue": "#1f2f5c", "light blue": "#9cc4e4", "baby pink": "#f4c2d0", "pista green": "#93c572",
     "dark green": "#1f5e3a", "rose red": "#c21e56", "multi color": "", "multi-color": "", "multicolor": "",
+    "navy blue": "#1f2a5a", "teal blue": "#367588", "mint green": "#98d8b9", "cream white": "#f5f0e1",
     "black": "#1b1c1f", "grey": "#8a8d91", "blue": "#2f5fa8", "white": "#f4f4f2", "cream": "#ece2cc",
     "pink": "#e8a0bf", "purple": "#6b3fa0", "green": "#3a8f4a", "cyan": "#3ec1d3", "teal": "#1f8a8a",
     "red": "#c62828", "brown": "#6e4b2a", "peach": "#f7c6a3", "lavender": "#b7a3d9", "silver": "#c0c4c8",
@@ -175,6 +176,7 @@ def self_check():
     assert colour_of("Oil Dispenser with Stainless Steel cap", "odset") == ""
     assert colour_of("Transparent Glass Bottle - Blue", "x") == "blue"
     assert colour_of("Heel Pad", "heelpadbeige") == ""
+    assert colour_of("Umbrella - Navy Blue", "x") == "navy blue" and colour_of("Box (Teal Blue)", "x") == "teal blue"
     assert catalogue([sheet_rows[0], ["Shelf", "123", "wmshelf", "", "Transparent"]])["123"]["colour"] == "transparent"
 
     # a new product is appended, and lands in the sheet's own column order
