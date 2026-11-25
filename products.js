@@ -1264,7 +1264,7 @@ var PRODUCTS = {
   "sku": "tsbottle3",
   "colour": "multicolor",
   "hex": "",
-  "image": "https://drive.google.com/thumbnail?id=1dx1o9Axs0pFI5OM993A2h_9gKBpEatkx&sz=w1000"
+  "image": "https://drive.google.com/thumbnail?id=16WwW_jzIgGnazqZV1kY155xk7uRxwnyH&sz=w1000"
  },
  "8906209351504": {
   "name": "Lazer Unbleached Cotton Papad Drying Cloth with Net, Breathable Food Drying Mesh Cover for Papad, Vadagam, Spices & Millets, Washable & Reusable (38 x 28 Inches)",
@@ -1810,28 +1810,28 @@ var PRODUCTS = {
   "sku": "lsoapdish",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1KQdpkZ-r5R5CGLunM-t6C_61xV0DOeCv&sz=w1000"
  },
  "8906209351955": {
   "name": "Lazer Micro Mate Lunchbox |Compact food container with secure lid for office, school, travel and daily meals| Lightweight, reusable and convenient for carrying lunch and snacks.",
   "sku": "mmlunchbox",
   "colour": "green",
   "hex": "#3a8f4a",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1XgHbgGvcwKbKwnwkJ04bjkab5hhLj_Vu&sz=w1000"
  },
  "8906209351962": {
   "name": "Lazer 3-Compartment Steel Lunch Box With Spoon & Fork | Three Food Sections For Organized Meals, Ideal For Office, School, College, Picnics And Travel",
   "sku": "slunchbox",
   "colour": "blue",
   "hex": "#2f5fa8",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1ypFkFNLnpiAFIg7SgfH92CYZ5-bWSrrK&sz=w1000"
  },
  "8906209351979": {
   "name": "Lazer Koi Koi Steel Lunch Box With Spoon & Chopsticks | Stainless Steel Tiffin Box for Office, School, Travel and Everyday Meals",
   "sku": "kkslunchbox",
   "colour": "purple",
   "hex": "#6b3fa0",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=15Nyr9cy2cYdKeWH9rU9VwgJqTFuNu6P4&sz=w1000"
  },
  "8906209351894": {
   "name": "Lazer Clear Acrylic Bathroom Shelf, Wall Mounted Shower Caddy with Strong Adhesive Tape, No Drill Storage Rack for Toiletries, Kitchen & Washroom",
@@ -1852,6 +1852,6 @@ var PRODUCTS = {
   "sku": "dwcloth",
   "colour": "grey",
   "hex": "#8a8d91",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1Q3Bs27bUL1hXx11hvrJjSP7bOsr_TyFV&sz=w1000"
  }
 };
