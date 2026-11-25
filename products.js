@@ -60,21 +60,21 @@ var PRODUCTS = {
   "sku": "wbpreblack",
   "colour": "black",
   "hex": "#1b1c1f",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1wc6fmk7akAuD6R571OTV-XVZ4veYzrEN&sz=w1000"
  },
  "8906209350798": {
   "name": "Lazer Premium Makeup Travel Pouch, Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Blue",
   "sku": "wbpreblue",
   "colour": "blue",
   "hex": "#2f5fa8",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=14AKgXbTlWPUsqsY2-NDDSFH1-PmbmMBL&sz=w1000"
  },
  "8906209350804": {
   "name": "Lazer Premium Makeup Travel Pouch, Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Pink",
   "sku": "wbprepink",
   "colour": "pink",
   "hex": "#e8a0bf",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1JM9vV72vgTdh3mPl5wzY3zcdiYZeUhWX&sz=w1000"
  },
  "8906209350170": {
   "name": "Lazer Makeup Travel Pouch, Half PVC Clear Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Blue",
@@ -1838,14 +1838,14 @@ var PRODUCTS = {
   "sku": "wmshelf",
   "colour": "transparent",
   "hex": "",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1cMnLJei4_9rye33sFzA0AjAKLWqgR1Cq&sz=w1000"
  },
  "8906209351900": {
   "name": "Lazer Wall-Mounted Kitchen Storage Cabinet | Adjustable shelves, transparent door, utility hooks and no-drill installation for organised kitchen storage.",
   "sku": "wmkitchencab",
   "colour": "white",
   "hex": "#f4f4f2",
-  "image": ""
+  "image": "https://drive.google.com/thumbnail?id=1bVQn7X5b0xYO2MIHDGu9pmZ52LdyDY4a&sz=w1000"
  },
  "8906209352235": {
   "name": "Lazer Double Layer Wire Dish Cleaning Cloth 20 x 20 cm (Pack of 10) | Reusable Scrubbing Cloth for Utensils, Pots, Pans, Stove, Sink and Kitchen Surfaces | Multipurpose Grease Cleaning Pad",
