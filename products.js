@@ -2,8 +2,8 @@ var PRODUCTS = {
  "5949998498176": {
   "name": "Lazer Pack of 3 Refillable Travel Bottles for Toiletries Silicone Container for Cream, Shampoo Hand Wash, Lotion Storage Bottle Travel Accessories Leak Proof (60 ML)",
   "sku": "tsbottle",
-  "colour": "cream",
-  "hex": "#ece2cc",
+  "colour": "multicolor",
+  "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1hYYVy2kCIw3b1P55jE9VMOke3jZFT7IM&sz=w1000"
  },
  "8906209350200": {
@@ -51,8 +51,8 @@ var PRODUCTS = {
  "8906209350163": {
   "name": "Lazer Makeup Travel Pouch, Cosmetic Bag, Travel kit Pouch for Toiletries, Brushes and Cosmetics - Set of 3 - Washbag Pouch - Pista Green",
   "sku": "wbpgreen",
-  "colour": "pista green",
-  "hex": "#93c572",
+  "colour": "mint green",
+  "hex": "#98d8b9",
   "image": "https://drive.google.com/thumbnail?id=1kogg36mvNBoBE4dRr422MnZO5SoYLNjV&sz=w1000"
  },
  "8906209350781": {
@@ -247,8 +247,8 @@ var PRODUCTS = {
  "8906209350491": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Portable Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "jcasebpink",
-  "colour": "pink",
-  "hex": "#e8a0bf",
+  "colour": "baby pink",
+  "hex": "#f4c2d0",
   "image": "https://drive.google.com/thumbnail?id=15wN8IRfU-BjsjuMmGt1DVgjH4rv24-xh&sz=w1000"
  },
  "8906209350507": {
@@ -261,8 +261,8 @@ var PRODUCTS = {
  "5949998548079": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Portable Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "jcaselblue",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "light blue",
+  "hex": "#9cc4e4",
   "image": "https://drive.google.com/thumbnail?id=1AvdTvPlNhfL2ToN7js-3Q_EhhJX8wtEp&sz=w1000"
  },
  "8906209350514": {
@@ -275,15 +275,15 @@ var PRODUCTS = {
  "8906209350521": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Portable Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "jcasenblue",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "navy blue",
+  "hex": "#1f2a5a",
   "image": "https://drive.google.com/thumbnail?id=1TQHzRbibckmp5N030vVCBO5O7vUhlqQM&sz=w1000"
  },
  "8906209350118": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Portable Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "jcasecwhite",
-  "colour": "white",
-  "hex": "#f4f4f2",
+  "colour": "cream white",
+  "hex": "#f5f0e1",
   "image": "https://drive.google.com/thumbnail?id=1ZlyXLZpxrnqSNrf-4EKXh2GOzuemUDk2&sz=w1000"
  },
  "5949999250070": {
@@ -303,8 +303,8 @@ var PRODUCTS = {
  "8906209350538": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Square Portable Mini Square Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "sqboxdgreen",
-  "colour": "green",
-  "hex": "#3a8f4a",
+  "colour": "dark green",
+  "hex": "#1f5e3a",
   "image": "https://drive.google.com/thumbnail?id=1iHvTFUGiSrZcdn0WQ4aa_0ZXbycHwWiP&sz=w1000"
  },
  "8906209350545": {
@@ -317,8 +317,8 @@ var PRODUCTS = {
  "8906209350132": {
   "name": "Lazer Jewellery Organiser PU Leather Zipper Square Portable Mini Square Storage Box Case with Dividers Container for Rings, Earrings, Necklace Home Organizer",
   "sku": "sqboxtblue",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "teal blue",
+  "hex": "#367588",
   "image": "https://drive.google.com/thumbnail?id=1aAY04_HhTXRYV4m3qxQa58cKbX5anV_p&sz=w1000"
  },
  "8906209350552": {
@@ -359,15 +359,15 @@ var PRODUCTS = {
  "8906209350583": {
   "name": "Lazer Lunch Bag Large Insulated Tiffin Tote Carry Bag with PU Leather Handles | Color Smiley Big Size Hot Cold Bag for Office, Travel, School, College, Outdoor, Picnic for Girls, Boys, Men & Women",
   "sku": "lbnblue",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "navy blue",
+  "hex": "#1f2a5a",
   "image": "https://drive.google.com/thumbnail?id=19n4jEpMJVPx9d5ProAMP75PLsbckUYok&sz=w1000"
  },
  "8906209350590": {
   "name": "Lazer Lunch Bag Large Insulated Tiffin Tote Carry Bag with PU Leather Handles | Color Smiley Big Size Hot Cold Bag for Office, Travel, School, College, Outdoor, Picnic for Girls, Boys, Men & Women",
   "sku": "lbmgreen",
-  "colour": "green",
-  "hex": "#3a8f4a",
+  "colour": "mint green",
+  "hex": "#98d8b9",
   "image": "https://drive.google.com/thumbnail?id=1fMUo3fH1WdPTm1JKAuCwmi-mYR5beVin&sz=w1000"
  },
  "8906209350231": {
@@ -499,7 +499,7 @@ var PRODUCTS = {
  "5949999034076": {
   "name": "Lazer 4 in 1 Travel Size Dispenser Bottle Set Refillable Plastic Leak Proof Toiletries Cosmetic Liquid Lotion Container (Multi Color)",
   "sku": "4in1bottle",
-  "colour": "multi color",
+  "colour": "multicolor",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=105df3PHW6l2Xts_KEKKdpuCYYoI9O7Ko&sz=w1000"
  },
@@ -814,8 +814,8 @@ var PRODUCTS = {
  "5949998620683": {
   "name": "Lazer Pure Copper Water Bottle 950ml | Ayurvedic Tamba Bottle with Antioxidant Properties | Health Benefits | Leak-Proof Design – Teal",
   "sku": "cbottle",
-  "colour": "teal",
-  "hex": "#1f8a8a",
+  "colour": "teal blue",
+  "hex": "#367588",
   "image": "https://drive.google.com/thumbnail?id=1RnsFSEJY3RtUV_46zLiNpvjyb4SsWI1o&sz=w1000"
  },
  "5949999103215": {
@@ -919,8 +919,8 @@ var PRODUCTS = {
  "8906209350101": {
   "name": "Lazer Pure Borosilicate Glass Water Bottle Set of 4 – 300ml Each, BPA-Free, Eco-Friendly, Leak-Proof & Durable (Transparent, Green, Blue, Yellow)",
   "sku": "gbottlecset",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "multicolor",
+  "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1a2RUdYDeemF7_nGRO8WA72u8GPapfYBw&sz=w1000"
  },
  "8906209350309": {
@@ -1066,7 +1066,7 @@ var PRODUCTS = {
  "8906209350866": {
   "name": "Lazer Plastic 36 Grid Jewelry Organizer Box with Adjustable Dividers, Transparent Rectangular Storage Case for Beads, Earrings, Rings, Small Accessories, Multicolor Craft Organizer",
   "sku": "36gridbox",
-  "colour": "multicolor",
+  "colour": "transparent",
   "hex": "",
   "image": "https://drive.google.com/thumbnail?id=1TwRw8VQi1_7tQe_yBLlXI3C9OcszzLup&sz=w1000"
  },
@@ -1129,8 +1129,8 @@ var PRODUCTS = {
  "8906209351115": {
   "name": "Lazer Shine 2-Fold 42 Inches Umbrella – Auto Open, Waterproof, Windproof, UPF 50+ Sun Protection, Large Compact Umbrella for Men, Women & Kids, Navy Blue",
   "sku": "umbrellanblue",
-  "colour": "blue",
-  "hex": "#2f5fa8",
+  "colour": "navy blue",
+  "hex": "#1f2a5a",
   "image": "https://drive.google.com/thumbnail?id=1l4svS6vOGAarW3V03nogh1XgGohT4FHK&sz=w1000"
  },
  "8906209351177": {
