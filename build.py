@@ -1,5 +1,6 @@
 """The catalogue's rules, and Google Sheet -> products.js.  Refresh the offline copy:  python build.py
 Columns: Product Name | EAN | SKU | Images (or "Image Link") | Colour (optional, overrides the guess)
+Any other column (MRP) stays in the sheet: it never reaches the phones and an edit leaves it alone.
 
 Nothing here touches the network or the disk except build(); it is plain functions over the sheet's
 rows, so the local panel (admin.py), the live one (api/admin.py) and this CLI all apply identical
@@ -126,7 +127,10 @@ def save(rows, form, replacing=None):
             raise ValueError(f"EAN {replacing} is not in the catalogue, so there is nothing to update")
         if holder is not None and holder != index:  # the EAN was edited onto one another product owns
             raise ValueError(f"EAN {ean} already belongs to another product")
-    values = [""] * len(rows[0])
+    # an edit starts from the row as it stands, so columns the form doesn't own (MRP) survive it.
+    # ponytail: they go back as the sheet displays them, fine for plain numbers and text
+    width = len(rows[0])
+    values = [""] * width if index is None else (list(rows[index + 1]) + [""] * width)[:width]
     for header, value in (("product name", name), ("ean", ean), ("sku", sku), ("colour", colour),
                           (next((h for h in IMAGE_HEADERS if h in col), "images"), image)):
         if header in col:  # written even when blank, so clearing a colour or an image on an edit sticks
@@ -191,6 +195,12 @@ def self_check():
     # an edit may move a product to a free EAN
     assert save(sheet_rows, {"name": "Moved", "ean": "777", "sku": "obag"}, replacing="5949998498176")[0] == 0
     assert removal(sheet_rows, "0 8906209350200") == (1, "8906209350200")
+    # a column the form doesn't own (MRP) survives an edit, starts blank on an add, and never ships
+    priced = [sheet_rows[0] + ["MRP"]] + [r + [m] for r, m in zip(sheet_rows[1:], ("799", "499"))]
+    assert save(priced, {"name": "Renamed", "ean": "5949998498176", "sku": "obag"},
+                replacing="5949998498176")[1] == ["Renamed", "5949998498176", "obag", "", "", "799"]
+    assert save(priced, {"name": "New", "ean": "123", "sku": "zz"})[1][-1] == ""
+    assert "799" not in json.dumps(catalogue(priced))
 
     for bad, why, replacing in (
             ({"name": "", "ean": "1", "sku": "s"}, "name", None),
